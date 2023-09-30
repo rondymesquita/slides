@@ -10,9 +10,8 @@
     "preview": "vite preview"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || 17.x",
-    "react-dom": "^16.8.0 || 17.x",
-    "styled-components": "^5.0.0"
+    "react": "^18.x",
+    "react-dom": "8.x"
   },
   "files": [
     "dist"
@@ -27,11 +26,15 @@
     }
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "framer-motion": "^10.16.4",
     "markdown-it": "^13.0.2",
     "markdown-it-attrs": "^4.1.6",
     "markdown-it-front-matter": "^0.2.3",
-    "react": "^16.8.0 || 17.x",
-    "react-dom": "^16.8.0 || 17.x",
+    "react": "^18.x",
+    "react-dom": "8.x",
     "vite-plugin-markdown": "^2.1.0"
   },
   "devDependencies": {
