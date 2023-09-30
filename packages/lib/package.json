@@ -1,5 +1,5 @@
 {
-  "name": "lib",
+  "name": "@rondymesquita/slides",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,9 +9,14 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "types": "./src/index.ts",
+  "main": "./src/index.ts",
   "dependencies": {
+    "markdown-it": "^13.0.2",
+    "markdown-it-attrs": "^4.1.6",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "vite-plugin-markdown": "^2.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
