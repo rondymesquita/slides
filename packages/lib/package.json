@@ -9,16 +9,34 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "peerDependencies": {
+    "react": "^16.8.0 || 17.x",
+    "react-dom": "^16.8.0 || 17.x",
+    "styled-components": "^5.0.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/slides.umd.js",
+  "module": "./dist/slides.es.js",
   "types": "./src/index.ts",
-  "main": "./src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "require": "./dist/slides.umd.js"
+    }
+  },
   "dependencies": {
     "markdown-it": "^13.0.2",
     "markdown-it-attrs": "^4.1.6",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "markdown-it-front-matter": "^0.2.3",
+    "react": "^16.8.0 || 17.x",
+    "react-dom": "^16.8.0 || 17.x",
     "vite-plugin-markdown": "^2.1.0"
   },
   "devDependencies": {
+    "@types/markdown-it": "^13.0.2",
+    "@types/markdown-it-attrs": "^4.1.1",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
