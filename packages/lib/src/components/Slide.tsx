@@ -4,59 +4,39 @@ import { useThemeContext } from '../contexts/ThemeContext';
 import { Attributes } from '../domain/model/Attributes';
 import { merge } from '../util/merge-object';
 import { lazy, Suspense } from 'react';
+import { Box } from '..';
 
 function createMarkup(htmlString: string) {
   return { __html: htmlString };
 }
 
-const DEFAULT_ATTRIBUTES: Attributes = {
-  slideLayout: 'Section',
-};
-
-const getAttributes = (htmlString: string) => {
-  const attributesToExtract = ['slide-layout'];
-  const div = document.createElement('div');
-  div.innerHTML = htmlString;
-
-  const attributes: any = {};
-  attributesToExtract.forEach((attribute) => {
-    const attributeValue = div
-      .querySelector(`*[${attribute}]`)
-      ?.getAttribute(`${attribute}`);
-
-    if (attributeValue) {
-      attributes[kebabToCamelCase(attribute)] = attributeValue;
-    }
-  });
-
-  // console.log({ attributes });
-
-  return merge(attributes, DEFAULT_ATTRIBUTES) as Attributes;
-};
-
 interface SlideProps {
-  htmlString: string;
+  html: string;
   theme: string;
+  active: boolean;
+  Layout: JSX.Element;
 }
 
-export default function Slide({ htmlString, theme }: SlideProps) {
-  const { slideLayout } = getAttributes(htmlString);
+export default function Slide({ html, theme, active, Layout }: SlideProps) {
+  // const { slideLayout } = getAttributes(htmlString);
 
   /**
    * React lazy load layout
    */
-  const Content = lazy(() => {
-    return import(`../themes/${theme}/${slideLayout}.tsx`);
-  });
+  // const Content = lazy(() => {
+  //   return import(`../themes/${theme}/${slideLayout}.tsx`);
+  // });
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <Content>
-        <div
-          data-auto-animate
-          dangerouslySetInnerHTML={createMarkup(htmlString)}
-        ></div>
-      </Content>
+      <Box hidden={!active} sx={{}}>
+        <Layout>
+          <div
+            data-auto-animate
+            dangerouslySetInnerHTML={createMarkup(html)}
+          ></div>
+        </Layout>
+      </Box>
     </Suspense>
   );
 }
