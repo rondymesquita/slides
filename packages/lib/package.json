@@ -11,7 +11,7 @@
   },
   "peerDependencies": {
     "react": "^18.x",
-    "react-dom": "8.x"
+    "react-dom": "18.x"
   },
   "files": [
     "dist"
@@ -48,7 +48,10 @@
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vitest": "^0.34.6"
   }
 }

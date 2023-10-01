@@ -1,18 +1,35 @@
-import { useState } from 'react'
-import './App.css'
-import { Presentation, Slides } from '@rondymesquita/slides'
-
-import * as slides from './index.md'
+import { useState } from 'react';
+import {
+  Presentation,
+  PresentationProvider,
+  Slides,
+  extendTheme,
+} from '@rondymesquita/slides';
+import './App.css';
+import * as slides from './index.md';
 
 function App() {
+  const chakraTheme = extendTheme({
+    colors: {
+      brand: {
+        100: 'blue',
+        900: '#1a202c',
+      },
+    },
+  });
 
   return (
     <>
-      <Presentation>
-        <Slides slides={slides}/>
-      </Presentation>
+      <PresentationProvider
+        chakraTheme={chakraTheme}
+        slides={slides}
+        theme={'classic'}
+      >
+        <Presentation />
+        {/* <Slides /> */}
+      </PresentationProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
