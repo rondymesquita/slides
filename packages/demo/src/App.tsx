@@ -21,12 +21,11 @@ function App() {
   return (
     <>
       <PresentationProvider
-        chakraTheme={chakraTheme}
+        // chakraTheme={chakraTheme}
         slides={slides}
         theme={'classic'}
       >
         <Presentation />
-        {/* <Slides /> */}
       </PresentationProvider>
     </>
   );
