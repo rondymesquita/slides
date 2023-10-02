@@ -7,7 +7,14 @@ tags:
   - "rad"
 ---
 
-## Slide 1 {data-id=title}
+{slide-layout=Cover}
+# Title 1 rondy {data-id=title}
+## Title 2 {data-id=title}
+### Title 3 {data-id=title}
+#### Title 4 {data-id=title}
+##### Title 5 {data-id=title}
+###### Title 6 {data-id=title}
+
 
 A paragraph with some text and a [link](https://hakim.se).
 

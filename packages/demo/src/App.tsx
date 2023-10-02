@@ -2,7 +2,6 @@ import { useState } from 'react';
 import {
   Presentation,
   PresentationProvider,
-  Slides,
   extendTheme,
 } from '@rondymesquita/slides';
 import './App.css';

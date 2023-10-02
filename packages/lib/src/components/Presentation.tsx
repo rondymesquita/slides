@@ -41,11 +41,7 @@ export default function Presentation() {
     loadTheme();
   }, []);
 
-  // const { size } = useWindowSize();
-  // const { scale } = useWindowScale();
-
   const containerRef = useRef<HTMLElement>();
-  // useElementSize(containerRef);
   const { scale } = useElementScale(containerRef);
 
   return (
@@ -56,7 +52,6 @@ export default function Presentation() {
             className='border'
             width='980px'
             height='552px'
-            // aspectRatio={'16/9'}
             ref={containerRef}
             position={'absolute'}
             left={'50%'}

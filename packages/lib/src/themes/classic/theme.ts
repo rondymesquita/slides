@@ -10,10 +10,29 @@ export default extendTheme({
       'html,body': {
         fontFamily: 'serif !important',
       },
-      'h1,h2,h3,h4,h5,h6': {
-        color: 'primary.200',
+      h1: {
         fontWeight: 900,
-        fontSize: '20px',
+        fontSize: theme.fontSizes['6xl'],
+      },
+      h2: {
+        fontWeight: 900,
+        fontSize: theme.fontSizes['5xl'],
+      },
+      h3: {
+        fontWeight: 900,
+        fontSize: theme.fontSizes['4xl'],
+      },
+      h4: {
+        fontWeight: 900,
+        fontSize: theme.fontSizes['3xl'],
+      },
+      h5: {
+        fontWeight: 900,
+        fontSize: theme.fontSizes['2xl'],
+      },
+      h6: {
+        fontWeight: 900,
+        fontSize: theme.fontSizes['xl'],
       },
     },
   },
