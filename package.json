@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "reset": "rimraf -g ./**/node_modules/"
   },
   "workspaces": [
     "packages/demo",
@@ -26,6 +26,7 @@
     "eslint-plugin-sort-destructure-keys": "^1.5.0",
     "eslint-plugin-unused-imports": "^3.0.0",
     "npm-check-updates": "^16.14.4",
+    "rimraf": "^5.0.5",
     "typescript": "^5.0.2"
   }
 }
