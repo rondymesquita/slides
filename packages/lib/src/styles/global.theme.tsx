@@ -9,7 +9,10 @@ export default extendTheme({
       },
       'html,body': {
         overflow: 'hidden',
-        background: 'black',
+        // background: 'black',
+      },
+      '.border': {
+        border: '1px solid red',
       },
     },
   },

@@ -14,7 +14,7 @@ interface SlideProps {
   html: string;
   theme: string;
   active: boolean;
-  Layout: JSX.Element;
+  Layout: React.ElementType;
 }
 
 export default function Slide({ html, theme, active, Layout }: SlideProps) {

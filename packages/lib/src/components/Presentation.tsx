@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
-import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import React, { useEffect, useRef } from 'react';
+import { Box, ChakraProvider, Container, extendTheme } from '@chakra-ui/react';
 import { ThemeProvider, useThemeContext } from '../contexts/ThemeContext';
 import { usePresentationContext } from '../contexts/PresentationContext';
 import { Slides } from '..';
 import { merge } from '../util/merge-object';
 import globalTheme from '../styles/global.theme';
+import { useWindowSize } from '../hooks/useWindowSize';
+import { useElementScale, useWindowScale } from '../hooks/useElementScale';
+import { useElementSize } from '../hooks/useElementSize';
 
 export interface PresentationProps {
   // children: React.ReactElement;
@@ -38,10 +41,35 @@ export default function Presentation() {
     loadTheme();
   }, []);
 
+  // const { size } = useWindowSize();
+  // const { scale } = useWindowScale();
+
+  const containerRef = useRef<HTMLElement>();
+  // useElementSize(containerRef);
+  const { scale } = useElementScale(containerRef);
+
   return (
     <div className='presentation'>
       <ChakraProvider theme={chakraTheme}>
-        <Slides slides={slides} theme={theme} />
+        <Box position={'relative'} width='100vw' height='100vh'>
+          <Box
+            className='border'
+            width='980px'
+            height='552px'
+            // aspectRatio={'16/9'}
+            ref={containerRef}
+            position={'absolute'}
+            left={'50%'}
+            top={'50%'}
+            sx={{
+              transform: `scale(${scale}) translate(-50%, -50%)`,
+              transformOrigin: 'top left',
+            }}
+          >
+            {/* {JSON.stringify(size)} */}
+            <Slides slides={slides} theme={theme} />
+          </Box>
+        </Box>
       </ChakraProvider>
     </div>
   );
