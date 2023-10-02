@@ -8,12 +8,12 @@ export default extendTheme({
         boxSizing: 'border-box',
       },
       'html,body': {
-        color: 'fg.700',
-        background: 'bg.0',
         fontFamily: 'serif !important',
       },
       'h1,h2,h3,h4,h5,h6': {
-        color: 'primary.600',
+        color: 'primary.200',
+        fontWeight: 900,
+        fontSize: '20px',
       },
     },
   },

@@ -3,6 +3,8 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { ThemeProvider, useThemeContext } from '../contexts/ThemeContext';
 import { usePresentationContext } from '../contexts/PresentationContext';
 import { Slides } from '..';
+import { merge } from '../util/merge-object';
+import globalTheme from '../styles/global.theme';
 
 export interface PresentationProps {
   // children: React.ReactElement;
@@ -25,7 +27,11 @@ export default function Presentation() {
   const loadTheme = async () => {
     if (Object.keys(chakraTheme).length === 0) {
       const t = await import(`../themes/${theme}/theme.ts`);
-      t && t.default && setChakraTheme(t.default);
+      // const finalTheme = merge(globalTheme, t && t.default ? t.default : {});
+      const finalTheme = extendTheme(globalTheme, t.default);
+      // console.log(globalTheme);
+      setChakraTheme(finalTheme);
+      // setChakraTheme(t.default);
     }
   };
   useEffect(() => {

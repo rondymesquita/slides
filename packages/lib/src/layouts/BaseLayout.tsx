@@ -4,7 +4,13 @@ import React from 'react';
 
 export default function BaseLayout({ children }: any) {
   return (
-    <Flex aspectRatio={'4/3'} width='100%' border={'1px solid blue'}>
+    <Flex
+      aspectRatio={'4/3'}
+      // max-width='100%'
+      // max-height={'100%'}
+      max-height={'700px'}
+      border='2px solid white'
+    >
       {children}
     </Flex>
   );

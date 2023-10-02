@@ -44,7 +44,11 @@ export default function Slides({ slides: slidesInput, theme }: SlidesProps) {
     console.log({ slides: result });
     setSlides(result);
   };
-  load();
+  // load();
+
+  useEffect(() => {
+    load();
+  }, []);
 
   new KeyboardController({
     onNext: () => {

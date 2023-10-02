@@ -29,7 +29,12 @@ export default function Slide({ html, theme, active, Layout }: SlideProps) {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <Box hidden={!active} sx={{}}>
+      <Box
+        hidden={!active}
+        sx={{
+          aspectRatio: '4/3',
+        }}
+      >
         <Layout>
           <div
             data-auto-animate
