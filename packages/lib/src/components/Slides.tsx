@@ -1,12 +1,10 @@
-import React, { lazy, useEffect, useState } from 'react';
+import React, { lazy, useEffect, useState, Suspense } from 'react';
 import { PresentationProps } from './Presentation';
 import { Slide } from '..';
-import { useThemeContext } from '../contexts/ThemeContext';
-import { usePresentationContext } from '../contexts/PresentationContext';
-import { Controller } from '../controllers/controller';
 import { KeyboardController } from '../controllers/keyboard-controller';
 import { getAttributes } from '../util/get-slide-atributes';
 import { Attributes } from '../domain/model/Attributes';
+import * as classic from '../themes/classic/layouts';
 
 export interface SlidesProps {
   slides: any;
@@ -30,7 +28,7 @@ export default function Slides({ slides: slidesInput, theme }: SlidesProps) {
       const attributes = getAttributes(slideHtml);
 
       const LayoutComponent = await import(
-        `../themes/${theme}/${attributes.slideLayout}.tsx`
+        `../themes/${theme}/layouts/${attributes.slideLayout}.tsx`
       );
 
       return {
@@ -44,7 +42,10 @@ export default function Slides({ slides: slidesInput, theme }: SlidesProps) {
     console.log({ slides: result });
     setSlides(result);
   };
-  // load();
+
+  // let GlobalThemeComponent = lazy(
+  //   () => import(`../themes/${theme}/Global.tsx`)
+  // );
 
   useEffect(() => {
     load();
@@ -64,6 +65,9 @@ export default function Slides({ slides: slidesInput, theme }: SlidesProps) {
   return (
     <>
       <div className='slides'>
+        {/* <Suspense fallback={<></>}>
+          <GlobalThemeComponent />
+        </Suspense> */}
         {slides.map(({ html, Layout }: SlideModel, index: number) => {
           return (
             <Slide
