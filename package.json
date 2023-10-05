@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "configure": "npm install --force && npm install -ws",
     "reset": "rimraf -g ./**/node_modules/"
   },
   "workspaces": [

@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import {
   Presentation,
   PresentationProvider,
   extendTheme,
-} from '@rondymesquita/slides';
+} from '@rondymesquita/splendid';
 import './App.css';
 import * as slides from './index.md';
 

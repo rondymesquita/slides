@@ -1,44 +1,55 @@
-#!/usr/bin/env tsx
+#!/usr/bin/env tsx --watch
 
-import {
-  defaultValue,
-  defineArgs,
-  help,
-  parseArgs,
-  required,
-  type,
-} from '@rondymesquita/args';
-import { log } from 'console';
+import { defaultValue, defineArgs, help, type } from '@rondymesquita/args';
+import path from 'path';
 import process from 'process';
+import {
+  loadConfigFromFile,
+  ConfigEnv,
+  createServer,
+  InlineConfig,
+} from 'vite';
 
 (async () => {
-  const callerPath = process.cwd();
-  const callerFile = process.argv[2];
-  // defineArgs()
-
-  // const { options, params } = parseArgs(process.argv);
   const { parseArgs, showHelp, showErrors } = defineArgs({
-    name: 'slides',
-    usage: 'slides [options]',
+    name: 'splendid',
+    usage: `
+      splendid [options]          start dev server
+      splendid build [options]    build for production
+    `,
     options: {
       help: [type('boolean'), help('show help message'), defaultValue(false)],
     },
   });
   const { options, params, errors } = parseArgs(process.argv.splice(2));
 
-  if (errors.length > 0) {
+  if (errors.length > 0 || params.length > 1) {
     showErrors();
     process.exit(0);
   }
 
   if (options.help) {
     showHelp();
+    process.exit(0);
   }
 
-  console.log({ options, params, errors });
+  const mode = params.length === 0 ? 'development' : params[0];
 
-  console.log('bin', {
-    callerFile,
-    callerPath,
-  });
+  const configEnv: ConfigEnv = {
+    mode,
+    command: 'serve',
+  };
+
+  const configFile = path.join(process.cwd(), 'vite.config.ts');
+  const config = (await loadConfigFromFile(configEnv, configFile))!;
+
+  const { server: serverConfig } = config.config;
+
+  if (mode === 'development') {
+    const server = await createServer(serverConfig as InlineConfig);
+    await server.listen();
+
+    server.printUrls();
+  } else {
+  }
 })();
