@@ -29,70 +29,84 @@ interface SlideModel {
   attributes: Attributes;
 }
 
-function SlideNavigation() {}
-
-export default function Slides({ slides: slidesInput, theme }: SlidesProps) {
-  // const [activeIndex, setActiveIndex] = useState(0);
+function SlideNavigation({ size }: any) {
   const slideIndex = useRef(0);
-  const [slides, setSlides] = useState<Array<SlideModel>>([]);
 
-  const slidesHtml: Array<string> = slidesInput.html.split('<hr>');
-
-  // const loadThemeLayouts = async () => {
-  const RouteComponents = slidesHtml.map((html: string, index: number) => {
-    const attributes = getAttributes(html);
-
-    const LayoutComponent = lazy(
-      () => import(`../themes/${theme}/layouts/${attributes.slideLayout}.tsx`)
-    );
-
-    const SlideComponent = () => (
-      <Slide key={index} layout={LayoutComponent} active={true} html={html} />
-    );
-    const RouteComponent = (
-      <Route
-        key={index}
-        path={`/${index}`}
-        element={<SlideComponent />}
-      ></Route>
-    );
-
-    return RouteComponent;
-  });
-
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   new KeyboardController({
     onNext: () => {
       const index = slideIndex.current;
-      const newIndex = index < slides.length - 1 ? index + 1 : index;
+      const newIndex = index < size - 1 ? index + 1 : index;
       slideIndex.current = newIndex;
-      console.log({ newIndex });
-      // navigate(`/${newIndex}`);
+      navigate(`/${newIndex}`);
     },
     onPrev: () => {
       const index = slideIndex.current;
       const newIndex = index > 0 ? index - 1 : index;
       slideIndex.current = newIndex;
-      console.log({ newIndex });
-      // navigate(`/${newIndex}`);
+      navigate(`/${newIndex}`);
     },
   });
+
+  return <></>;
+}
+
+export default function Slides({ slides, theme }: SlidesProps) {
+  const [slideRoutes, setSlideRoutes] = useState<React.JSX.Element[]>([]);
+  const [isLoaded, setLoaded] = useState(false);
+
+  const htmls: Array<string> = slides.html.split('<hr>');
+
+  const load = async () => {
+    const promises = htmls.map(async (html: string, index: number) => {
+      const attributes = getAttributes(html);
+
+      const LayoutComponent = await import(
+        `../themes/${theme}/layouts/${attributes.slideLayout}.tsx`
+      );
+
+      const SlideComponent = () => (
+        <Slide
+          key={index}
+          layout={LayoutComponent.default}
+          active={true}
+          html={html}
+        />
+      );
+      const RouteComponent = (
+        <Route
+          key={index}
+          path={`/${index}`}
+          element={<SlideComponent />}
+        ></Route>
+      );
+
+      return RouteComponent;
+    });
+
+    const RouteComponents = await Promise.all(promises);
+    setSlideRoutes(RouteComponents);
+    setLoaded(true);
+  };
+
+  useEffect(() => {
+    load();
+
+    return () => {};
+  }, []);
 
   return (
     <>
       <Flex className='slides' width={'100%'} height={'100%'}>
-        <Suspense fallback={<div>loading...</div>}>
-          <HashRouter>
-            <Routes>{RouteComponents}</Routes>
-          </HashRouter>
-        </Suspense>
-        {/* <Navigate to={'/1'} /> */}
-        {/* {isSlidesLoaded && ( */}
-        {/* <Suspense fallback={<>Loading...</>}> */}
-        {/* <Routes>{SlidesComponents}</Routes> */}
-        {/* </Suspense> */}
-        {/* )} */}
+        {isLoaded && (
+          <Suspense fallback={<div>loading...</div>}>
+            <HashRouter>
+              <SlideNavigation size={htmls.length} />
+              <Routes>{slideRoutes}</Routes>
+            </HashRouter>
+          </Suspense>
+        )}
       </Flex>
     </>
   );
