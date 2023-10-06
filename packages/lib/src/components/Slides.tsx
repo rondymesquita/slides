@@ -1,55 +1,14 @@
-import React, { lazy, useEffect, useState, Suspense, useRef } from 'react';
-import { PresentationProps } from './Presentation';
-import { Box, Flex, Slide, Slide, Slide } from '..';
-import { KeyboardController } from '../controllers/keyboard-controller';
+import React, { useEffect, useState, Suspense } from 'react';
+import { Flex, Slide } from '..';
 import { getAttributes } from '../util/get-slide-atributes';
 import { Attributes } from '../domain/model/Attributes';
 // import * as classic from '../themes/classic/layouts';
-import {
-  RouterProvider,
-  BrowserRouter,
-  HashRouter,
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useParams,
-  useLocation,
-} from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
+import SlideNavigator from './SlideNavigator';
 
 export interface SlidesProps {
   slides: any;
   theme: string;
-}
-
-interface SlideModel {
-  // layout: React.JSX.Element;
-  layout: any;
-  html: string;
-  attributes: Attributes;
-}
-
-function SlideNavigation({ size }: any) {
-  const slideIndex = useRef(0);
-
-  const navigate = useNavigate();
-
-  new KeyboardController({
-    onNext: () => {
-      const index = slideIndex.current;
-      const newIndex = index < size - 1 ? index + 1 : index;
-      slideIndex.current = newIndex;
-      navigate(`/${newIndex}`);
-    },
-    onPrev: () => {
-      const index = slideIndex.current;
-      const newIndex = index > 0 ? index - 1 : index;
-      slideIndex.current = newIndex;
-      navigate(`/${newIndex}`);
-    },
-  });
-
-  return <></>;
 }
 
 export default function Slides({ slides, theme }: SlidesProps) {
@@ -102,7 +61,7 @@ export default function Slides({ slides, theme }: SlidesProps) {
         {isLoaded && (
           <Suspense fallback={<div>loading...</div>}>
             <HashRouter>
-              <SlideNavigation size={htmls.length} />
+              <SlideNavigator size={htmls.length} />
               <Routes>{slideRoutes}</Routes>
             </HashRouter>
           </Suspense>

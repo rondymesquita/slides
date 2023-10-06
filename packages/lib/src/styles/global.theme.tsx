@@ -9,6 +9,7 @@ export default extendTheme({
       },
       'html,body': {
         overflow: 'hidden',
+        userSelect: 'none',
         // background: 'black',
       },
       '.border': {

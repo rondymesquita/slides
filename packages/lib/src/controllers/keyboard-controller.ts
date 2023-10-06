@@ -1,16 +1,20 @@
+import { useEffect } from 'react';
 import { Controller } from './controller';
 import { IController } from './icontroller';
 
-export class KeyboardController {
-  constructor(controller: IController) {
-    document.onkeydown = (event: KeyboardEvent) => {
-      // const e = event || window.event;
+export const useKeyboardController = (controller: IController) => {
+  const onKeyDown = (event: KeyboardEvent) => {
+    if (event.code == 'ArrowLeft') {
+      controller.onPrev();
+    } else if (event.code == 'ArrowRight') {
+      controller.onNext();
+    }
+  };
+  useEffect(() => {
+    document.addEventListener('keydown', onKeyDown);
 
-      if (event.code == 'ArrowLeft') {
-        controller.onPrev();
-      } else if (event.code == 'ArrowRight') {
-        controller.onNext();
-      }
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
     };
-  }
-}
+  }, []);
+};
