@@ -14,7 +14,7 @@ Description
 
 
 ---
-## What is Splendid {data-id=title class=red}
+# What is Splendid {data-id=title class=red}
 
 Splendid is a markdown based presentation framework that uses Vite and React.
 
@@ -29,6 +29,6 @@ Read more about [Splendid]()
 
 ---
 
-## Slide 3
+# Slide 3
 
 teste

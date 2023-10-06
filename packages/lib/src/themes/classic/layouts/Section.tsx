@@ -1,13 +1,16 @@
 import React from 'react';
-import BaseLayout from '../../../layouts/BaseLayout';
+import BaseLayout from './BaseLayout';
 
 export default function Section({ children }: any) {
   return (
     <BaseLayout
-      p={8}
       sx={{
+        padding: 8,
         ul: {
-          paddingLeft: '8',
+          padding: 8,
+        },
+        'h1,h2,h3,h4,h5,h6': {
+          marginBottom: '4',
         },
       }}
     >

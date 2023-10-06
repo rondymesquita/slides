@@ -18,9 +18,9 @@ export default function Presentation() {
 
   const loadTheme = async () => {
     if (Object.keys(chakraTheme).length === 0) {
-      const t = await import(`../themes/${theme}/theme.ts`);
+      const themeTheme = await import(`../themes/${theme}/theme.ts`);
       // const finalTheme = merge(globalTheme, t && t.default ? t.default : {});
-      const finalTheme = extendTheme(globalTheme, t.default);
+      const finalTheme = extendTheme(globalTheme, themeTheme.default);
       // console.log(globalTheme);
       setChakraTheme(finalTheme);
       // setChakraTheme(t.default);
