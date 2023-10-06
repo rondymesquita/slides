@@ -1,6 +1,6 @@
 import React, { lazy, useEffect, useState, Suspense } from 'react';
 import { PresentationProps } from './Presentation';
-import { Slide } from '..';
+import { Flex, Slide } from '..';
 import { KeyboardController } from '../controllers/keyboard-controller';
 import { getAttributes } from '../util/get-slide-atributes';
 import { Attributes } from '../domain/model/Attributes';
@@ -12,7 +12,7 @@ export interface SlidesProps {
 }
 
 interface SlideModel {
-  Layout: React.JSX.Element;
+  layout: React.JSX.Element;
   html: string;
   attributes: Attributes;
 }
@@ -32,7 +32,7 @@ export default function Slides({ slides: slidesInput, theme }: SlidesProps) {
       );
 
       return {
-        Layout: LayoutComponent.default,
+        layout: LayoutComponent.default,
         html: slideHtml,
         attributes,
       };
@@ -42,10 +42,6 @@ export default function Slides({ slides: slidesInput, theme }: SlidesProps) {
     console.log({ slides: result });
     setSlides(result);
   };
-
-  // let GlobalThemeComponent = lazy(
-  //   () => import(`../themes/${theme}/Global.tsx`)
-  // );
 
   useEffect(() => {
     load();
@@ -64,22 +60,19 @@ export default function Slides({ slides: slidesInput, theme }: SlidesProps) {
 
   return (
     <>
-      <div className='slides'>
-        {/* <Suspense fallback={<></>}>
-          <GlobalThemeComponent />
-        </Suspense> */}
-        {slides.map(({ html, Layout }: SlideModel, index: number) => {
+      <Flex className='slides' width={'100%'} height={'100%'}>
+        {slides.map(({ html, layout }: SlideModel, index: number) => {
           return (
             <Slide
               key={index}
               html={html}
-              Layout={Layout}
+              layout={layout}
               theme={theme}
               active={activeIndex === index}
             />
           );
         })}
-      </div>
+      </Flex>
     </>
   );
 }

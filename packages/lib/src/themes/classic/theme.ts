@@ -16,6 +16,7 @@ export default extendTheme({
       },
       'html,body': {
         fontFamily: 'LibreBaskerville',
+        backgroundColor: theme.colors.black,
       },
       h1: {
         // color: 'red',
@@ -42,6 +43,7 @@ export default extendTheme({
         fontWeight: 900,
         fontSize: theme.fontSizes['xl'],
       },
+      '.slide': {},
     },
   },
   components: {},

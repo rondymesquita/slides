@@ -5,3 +5,4 @@ export { slidePlugin } from './vite/plugin';
 export { defineConfig } from './vite/config';
 export * from '@chakra-ui/react';
 export { PresentationProvider } from './contexts/PresentationContext';
+export { reactAdapter } from './frameworks/react-adapter';

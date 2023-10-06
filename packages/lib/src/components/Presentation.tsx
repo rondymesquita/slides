@@ -49,7 +49,6 @@ export default function Presentation() {
       <ChakraProvider theme={chakraTheme}>
         <Box position={'relative'} width='100vw' height='100vh'>
           <Box
-            className='border'
             width='980px'
             height='552px'
             ref={containerRef}

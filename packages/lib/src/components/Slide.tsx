@@ -4,7 +4,7 @@ import { useThemeContext } from '../contexts/ThemeContext';
 import { Attributes } from '../domain/model/Attributes';
 import { merge } from '../util/merge-object';
 import { lazy, Suspense } from 'react';
-import { Box } from '..';
+import { Box, Flex } from '..';
 
 function createMarkup(htmlString: string) {
   return { __html: htmlString };
@@ -12,31 +12,19 @@ function createMarkup(htmlString: string) {
 
 interface SlideProps {
   html: string;
-  theme: string;
   active: boolean;
-  Layout: React.ElementType;
+  layout: React.ElementType;
 }
 
-export default function Slide({ html, theme, active, Layout }: SlideProps) {
-  // const { slideLayout } = getAttributes(htmlString);
-
-  /**
-   * React lazy load layout
-   */
-  // const Content = lazy(() => {
-  //   return import(`../themes/${theme}/${slideLayout}.tsx`);
-  // });
-
+export default function Slide({ html, active, layout: Layout }: SlideProps) {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Box hidden={!active}>
-        <Layout>
-          <div
-            data-auto-animate
-            dangerouslySetInnerHTML={createMarkup(html)}
-          ></div>
-        </Layout>
-      </Box>
-    </Suspense>
+    <Flex hidden={!active} height={'100%'} width={'100%'} className='slide'>
+      <Layout>
+        <div
+          data-auto-animate
+          dangerouslySetInnerHTML={createMarkup(html)}
+        ></div>
+      </Layout>
+    </Flex>
   );
 }

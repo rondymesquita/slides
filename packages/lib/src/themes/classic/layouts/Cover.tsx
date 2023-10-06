@@ -5,7 +5,7 @@ import theme from '../theme';
 
 export default function Cover({ children }: any) {
   return (
-    <Flex
+    <BaseLayout
       justifyContent={'center'}
       alignItems={'center'}
       height={'552px'}
@@ -15,11 +15,12 @@ export default function Cover({ children }: any) {
         textAlign={'center'}
         sx={{
           h1: {
-            fontSize: theme.fontSizes['7xl'],
-            color: 'red',
+            fontSize: theme.fontSizes['5xl'],
+            fontWeight: '100',
           },
           h2: {
-            fontSize: theme.fontSizes['3xl'],
+            fontSize: theme.fontSizes['2xl'],
+            fontWeight: '100',
           },
           'code,pre': {
             textAlign: 'left',
@@ -28,6 +29,6 @@ export default function Cover({ children }: any) {
       >
         {children}
       </Center>
-    </Flex>
+    </BaseLayout>
   );
 }

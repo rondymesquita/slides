@@ -1,28 +1,11 @@
-import {
-  Presentation,
-  PresentationProvider,
-  extendTheme,
-} from '@rondymesquita/splendid';
+import { Presentation, PresentationProvider } from '@rondymesquita/splendid';
 import './App.css';
-import * as slides from './index.md';
+import * as slides from '../index.md';
 
 function App() {
-  const chakraTheme = extendTheme({
-    colors: {
-      brand: {
-        100: 'blue',
-        900: '#1a202c',
-      },
-    },
-  });
-
   return (
     <>
-      <PresentationProvider
-        // chakraTheme={chakraTheme}
-        slides={slides}
-        theme={'classic'}
-      >
+      <PresentationProvider slides={slides} theme={'classic'}>
         <Presentation />
       </PresentationProvider>
     </>

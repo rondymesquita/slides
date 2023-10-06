@@ -1,5 +1,5 @@
 import MarkdownIt from 'markdown-it';
-import { UserConfig, mergeConfig } from 'vite';
+import { UserConfig } from 'vite';
 import markdownItAttrs from 'markdown-it-attrs';
 import { Mode, plugin as mdPlugin } from 'vite-plugin-markdown';
 
