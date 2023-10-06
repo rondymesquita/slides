@@ -9,7 +9,7 @@ export default defineConfig({
   },
   plugins: [
     react({
-      include: ['*/md'],
+      include: ['*/.*md'],
     }),
   ],
   server: {

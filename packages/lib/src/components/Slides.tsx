@@ -1,10 +1,21 @@
-import React, { lazy, useEffect, useState, Suspense } from 'react';
+import React, { lazy, useEffect, useState, Suspense, useRef } from 'react';
 import { PresentationProps } from './Presentation';
-import { Flex, Slide } from '..';
+import { Box, Flex, Slide, Slide, Slide } from '..';
 import { KeyboardController } from '../controllers/keyboard-controller';
 import { getAttributes } from '../util/get-slide-atributes';
 import { Attributes } from '../domain/model/Attributes';
-import * as classic from '../themes/classic/layouts';
+// import * as classic from '../themes/classic/layouts';
+import {
+  RouterProvider,
+  BrowserRouter,
+  HashRouter,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useParams,
+  useLocation,
+} from 'react-router-dom';
 
 export interface SlidesProps {
   slides: any;
@@ -12,66 +23,76 @@ export interface SlidesProps {
 }
 
 interface SlideModel {
-  layout: React.JSX.Element;
+  // layout: React.JSX.Element;
+  layout: any;
   html: string;
   attributes: Attributes;
 }
 
+function SlideNavigation() {}
+
 export default function Slides({ slides: slidesInput, theme }: SlidesProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
+  // const [activeIndex, setActiveIndex] = useState(0);
+  const slideIndex = useRef(0);
   const [slides, setSlides] = useState<Array<SlideModel>>([]);
 
   const slidesHtml: Array<string> = slidesInput.html.split('<hr>');
 
-  const load = async () => {
-    const promises = slidesHtml.map(async (slideHtml: string) => {
-      const attributes = getAttributes(slideHtml);
+  // const loadThemeLayouts = async () => {
+  const RouteComponents = slidesHtml.map((html: string, index: number) => {
+    const attributes = getAttributes(html);
 
-      const LayoutComponent = await import(
-        `../themes/${theme}/layouts/${attributes.slideLayout}.tsx`
-      );
+    const LayoutComponent = lazy(
+      () => import(`../themes/${theme}/layouts/${attributes.slideLayout}.tsx`)
+    );
 
-      return {
-        layout: LayoutComponent.default,
-        html: slideHtml,
-        attributes,
-      };
-    });
+    const SlideComponent = () => (
+      <Slide key={index} layout={LayoutComponent} active={true} html={html} />
+    );
+    const RouteComponent = (
+      <Route
+        key={index}
+        path={`/${index}`}
+        element={<SlideComponent />}
+      ></Route>
+    );
 
-    const result = await Promise.all(promises);
-    console.log({ slides: result });
-    setSlides(result);
-  };
+    return RouteComponent;
+  });
 
-  useEffect(() => {
-    load();
-  }, []);
+  // const navigate = useNavigate();
 
   new KeyboardController({
     onNext: () => {
-      setActiveIndex((index) =>
-        index < slides.length - 1 ? index + 1 : index
-      );
+      const index = slideIndex.current;
+      const newIndex = index < slides.length - 1 ? index + 1 : index;
+      slideIndex.current = newIndex;
+      console.log({ newIndex });
+      // navigate(`/${newIndex}`);
     },
     onPrev: () => {
-      setActiveIndex((index) => (index > 0 ? index - 1 : index));
+      const index = slideIndex.current;
+      const newIndex = index > 0 ? index - 1 : index;
+      slideIndex.current = newIndex;
+      console.log({ newIndex });
+      // navigate(`/${newIndex}`);
     },
   });
 
   return (
     <>
       <Flex className='slides' width={'100%'} height={'100%'}>
-        {slides.map(({ html, layout }: SlideModel, index: number) => {
-          return (
-            <Slide
-              key={index}
-              html={html}
-              layout={layout}
-              theme={theme}
-              active={activeIndex === index}
-            />
-          );
-        })}
+        <Suspense fallback={<div>loading...</div>}>
+          <HashRouter>
+            <Routes>{RouteComponents}</Routes>
+          </HashRouter>
+        </Suspense>
+        {/* <Navigate to={'/1'} /> */}
+        {/* {isSlidesLoaded && ( */}
+        {/* <Suspense fallback={<>Loading...</>}> */}
+        {/* <Routes>{SlidesComponents}</Routes> */}
+        {/* </Suspense> */}
+        {/* )} */}
       </Flex>
     </>
   );

@@ -8,22 +8,11 @@ import globalTheme from '../styles/global.theme';
 import { useWindowSize } from '../hooks/useWindowSize';
 import { useElementScale, useWindowScale } from '../hooks/useElementScale';
 import { useElementSize } from '../hooks/useElementSize';
+import { HashRouter } from 'react-router-dom';
 
-export interface PresentationProps {
-  // children: React.ReactElement;
-  // theme: string;
-  // chakraTheme?: ReturnType<typeof extendTheme>;
-  // slides: {
-  //   html: string;
-  //   attributes: object;
-  // };
-}
+export interface PresentationProps {}
 // eslint-disable-next-line no-redeclare
 export default function Presentation() {
-  //setup chakra theme
-  //setup presentatiton theme
-  //inject contexts
-
   const { chakraTheme, setChakraTheme, slides, theme } =
     usePresentationContext();
 
@@ -60,8 +49,9 @@ export default function Presentation() {
               transformOrigin: 'top left',
             }}
           >
-            {/* {JSON.stringify(size)} */}
+            {/* <HashRouter basename={'/'}> */}
             <Slides slides={slides} theme={theme} />
+            {/* </HashRouter> */}
           </Box>
         </Box>
       </ChakraProvider>

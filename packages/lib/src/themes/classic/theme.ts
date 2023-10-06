@@ -17,30 +17,24 @@ export default extendTheme({
       'html,body': {
         fontFamily: 'LibreBaskerville',
         backgroundColor: theme.colors.black,
+        fontSize: 18,
       },
       h1: {
-        // color: 'red',
-        fontWeight: 900,
-        fontSize: theme.fontSizes['6xl'],
-      },
-      h2: {
-        fontWeight: 900,
-        fontSize: theme.fontSizes['5xl'],
-      },
-      h3: {
-        fontWeight: 900,
-        fontSize: theme.fontSizes['4xl'],
-      },
-      h4: {
-        fontWeight: 900,
-        fontSize: theme.fontSizes['3xl'],
-      },
-      h5: {
-        fontWeight: 900,
         fontSize: theme.fontSizes['2xl'],
       },
+      h2: {
+        fontSize: theme.fontSizes['2xl'],
+      },
+      h3: {
+        fontSize: theme.fontSizes['xl'],
+      },
+      h4: {
+        fontSize: theme.fontSizes['xl'],
+      },
+      h5: {
+        fontSize: theme.fontSizes['xl'],
+      },
       h6: {
-        fontWeight: 900,
         fontSize: theme.fontSizes['xl'],
       },
       '.slide': {},

@@ -6,7 +6,7 @@ import { Presentation, PresentationProvider } from '..';
 interface ReactAdapterOptions {
   root: HTMLElement;
   slides: any;
-  chakraTheme: Record<string, any>;
+  chakraTheme?: Record<string, any>;
 }
 
 export const reactAdapter = ({
@@ -16,15 +16,15 @@ export const reactAdapter = ({
 }: ReactAdapterOptions) => {
   const render = () => {
     ReactDOM.createRoot(root).render(
-      <React.StrictMode>
-        <PresentationProvider
-          chakraTheme={chakraTheme}
-          slides={slides}
-          theme={'classic'}
-        >
-          <Presentation />
-        </PresentationProvider>
-      </React.StrictMode>
+      // <React.StrictMode>
+      <PresentationProvider
+        chakraTheme={chakraTheme}
+        slides={slides}
+        theme={'classic'}
+      >
+        <Presentation />
+      </PresentationProvider>
+      // </React.StrictMode>
     );
   };
 

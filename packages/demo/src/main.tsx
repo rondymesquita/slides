@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
+import { reactAdapter } from '@rondymesquita/splendid';
+import './App.css';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  // <React.StrictMode>
-  <App />
-  // </React.StrictMode>,
-);
+import * as slides from '../index.md';
+
+const root = document.getElementById('root')!;
+const { render } = reactAdapter({
+  root,
+  slides,
+});
+
+render();

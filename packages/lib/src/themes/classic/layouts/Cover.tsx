@@ -5,12 +5,7 @@ import theme from '../theme';
 
 export default function Cover({ children }: any) {
   return (
-    <BaseLayout
-      justifyContent={'center'}
-      alignItems={'center'}
-      height={'552px'}
-      sx={{}}
-    >
+    <BaseLayout justifyContent={'center'} alignItems={'center'} sx={{}}>
       <Center
         textAlign={'center'}
         sx={{
