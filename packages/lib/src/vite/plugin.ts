@@ -95,7 +95,8 @@ const markdown = () => {
 export default function splendid() {
   return [
     markdown(),
-    react({ include: /\.(js|jsx|ts|tsx|md)$/ }),
+    // react({ include: /\.(js|jsx|ts|tsx|md)$/ }),
+    // react(),
     // mdPlugin({
     //   mode: [Mode.HTML],
     //   markdownIt: md,

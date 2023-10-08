@@ -6,7 +6,7 @@ const DEFAULT_ATTRIBUTES: Attributes = {
   slideLayout: 'Section',
 };
 
-export const getAttributes = (htmlString: string) => {
+export const getAttributes2 = (htmlString: string) => {
   const attributesToExtract = ['slide-layout'];
   const div = document.createElement('div');
   div.innerHTML = htmlString;

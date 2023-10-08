@@ -12,7 +12,7 @@ export const usePresentationContext = () => useContext(PresentationContext);
 
 export function PresentationProvider({
   children,
-  theme: inputTheme,
+  theme: inputTheme = 'classic',
   chakraTheme: inputChakraTheme = {},
   slides: inputSlides,
 }: any) {

@@ -1,5 +1,5 @@
 ```yml:splendid
-splendid-layout: fulano
+layout: Cover
 title: fulano
 ```
 
@@ -10,7 +10,9 @@ Description
 
 
 ---
-
+```yml:splendid
+layout: Section
+```
 
 # What is Splendid?
 

@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Presentation, PresentationProvider } from '..';
-import { log } from 'console';
-// import * as slides from './index.md';
 
 interface ReactAdapterOptions {
   root: HTMLElement;
@@ -16,8 +14,6 @@ export const reactAdapter = ({
   chakraTheme,
 }: ReactAdapterOptions) => {
   const render = () => {
-    log({ slides });
-
     ReactDOM.createRoot(root).render(
       // <React.StrictMode>
       <PresentationProvider
