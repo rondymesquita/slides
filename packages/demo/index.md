@@ -36,8 +36,6 @@ Read more about [Splendid]()
 
 # Slide 2
 
-teste
-
 
 ---
 ## slide 3

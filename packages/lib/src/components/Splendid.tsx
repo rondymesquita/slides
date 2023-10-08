@@ -11,8 +11,8 @@ export interface SplendidProps {}
 export default function Splendid() {
   const {
     chakraTheme,
+    markdown,
     setChakraTheme,
-    slides,
     theme,
   } = useSplendidContext();
 
@@ -46,7 +46,7 @@ export default function Splendid() {
               transformOrigin: 'top left',
             }}
           >
-            <Slides slides={slides} theme={theme} />
+            <Slides markdown={markdown} theme={theme} />
           </Box>
         </Box>
       </ChakraProvider>

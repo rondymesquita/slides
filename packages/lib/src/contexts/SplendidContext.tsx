@@ -11,19 +11,19 @@ export const useSplendidContext = () => useContext(SplendidContext);
 export function SplendidProvider({
   chakraTheme: inputChakraTheme = {},
   children,
-  slides: inputSlides,
+  markdown: inputMarkdown,
   theme: inputTheme = 'classic',
 }: any) {
   const [theme, setTheme,] = useState(inputTheme);
   const [chakraTheme, setChakraTheme,] = useState(inputChakraTheme);
-  const [slides, setSlides,] = useState(inputSlides);
+  const [markdown, setMarkdown,] = useState(inputMarkdown);
   const value = {
     theme,
     setTheme,
     chakraTheme,
     setChakraTheme,
-    slides,
-    setSlides,
+    markdown,
+    setMarkdown,
   };
   return (
     <SplendidContext.Provider value={value}>
