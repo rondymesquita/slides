@@ -1,22 +1,25 @@
----
-title: Awesome Title
-description: Describe this awesome content
-tags:
-  - "great"
-  - "awesome"
-  - "rad"
----
+```yml:splendid
+splendid-layout: fulano
+title: fulano
+```
 
-{slide-layout=Cover}
-# My Presentation {data-id=title}
+# My Presentation
 
 Description
 
 
----
-# What is Splendid {data-id=title class=red}
 
-Splendid is a markdown based presentation framework that uses Vite and React.
+---
+
+
+# What is Splendid?
+
+> Splendid is a markdown based presentation framework that uses Vite and React.
+
+
+<Box p="5" background="red" width="100px" height="100px">
+Teste
+</Box>
 
 - Create the content Markdown
 - Chakra UI out-of-the-box
@@ -29,6 +32,10 @@ Read more about [Splendid]()
 
 ---
 
-# Slide 3
+# Slide 2
 
 teste
+
+
+---
+## slide 3

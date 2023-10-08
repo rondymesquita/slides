@@ -15,34 +15,38 @@ export default function Slides({ slides, theme }: SlidesProps) {
   const [slideRoutes, setSlideRoutes] = useState<React.JSX.Element[]>([]);
   const [isLoaded, setLoaded] = useState(false);
 
-  const htmls: Array<string> = slides.html.split('<hr>');
+  // const htmls: Array<string> = slides.html.split('<hr>');
+  const pages: Array<string> = slides.pages;
 
   const load = async () => {
-    const promises = htmls.map(async (html: string, index: number) => {
-      const attributes = getAttributes(html);
+    const promises = pages.map(
+      async ({ html, attributes }: any, index: number) => {
+        console.log({ html, attributes });
+        // const attributes = getAttributes(html);
 
-      const LayoutComponent = await import(
-        `../themes/${theme}/layouts/${attributes.slideLayout}.tsx`
-      );
+        const LayoutComponent = await import(
+          `../themes/${theme}/layouts/${attributes.slideLayout}.tsx`
+        );
 
-      const SlideComponent = () => (
-        <Slide
-          key={index}
-          layout={LayoutComponent.default}
-          active={true}
-          html={html}
-        />
-      );
-      const RouteComponent = (
-        <Route
-          key={index}
-          path={`/${index}`}
-          element={<SlideComponent />}
-        ></Route>
-      );
+        const SlideComponent = () => (
+          <Slide
+            key={index}
+            layout={LayoutComponent.default}
+            active={true}
+            html={html}
+          />
+        );
+        const RouteComponent = (
+          <Route
+            key={index}
+            path={`/${index}`}
+            element={<SlideComponent />}
+          ></Route>
+        );
 
-      return RouteComponent;
-    });
+        return RouteComponent;
+      }
+    );
 
     const RouteComponents = await Promise.all(promises);
     setSlideRoutes(RouteComponents);
@@ -58,14 +62,12 @@ export default function Slides({ slides, theme }: SlidesProps) {
   return (
     <>
       <Flex className='slides' width={'100%'} height={'100%'}>
-        {isLoaded && (
-          <Suspense fallback={<div>loading...</div>}>
-            <HashRouter>
-              <SlideNavigator size={htmls.length} />
-              <Routes>{slideRoutes}</Routes>
-            </HashRouter>
-          </Suspense>
-        )}
+        <Suspense fallback={<div>loading...</div>}>
+          <HashRouter>
+            <SlideNavigator size={htmls.length} />
+            {isLoaded && <Routes>{slideRoutes}</Routes>}
+          </HashRouter>
+        </Suspense>
       </Flex>
     </>
   );

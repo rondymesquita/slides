@@ -17,7 +17,6 @@ export default extendTheme({
       'html,body': {
         fontFamily: 'LibreBaskerville',
         backgroundColor: theme.colors.black,
-        fontSize: theme.fontSizes.xl,
       },
     },
   },

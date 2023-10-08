@@ -11,10 +11,10 @@ export default function BaseLayout({ children, ...props }: any) {
       sx={{
         ...props.sx,
         h1: {
-          fontSize: theme.fontSizes['4xl'],
+          fontSize: theme.fontSizes['2xl'],
         },
         h2: {
-          fontSize: theme.fontSizes['4xl'],
+          fontSize: theme.fontSizes['2xl'],
         },
         h3: {
           fontSize: theme.fontSizes['xl'],
@@ -27,6 +27,18 @@ export default function BaseLayout({ children, ...props }: any) {
         },
         h6: {
           fontSize: theme.fontSizes['xl'],
+        },
+        'ul,li': {
+          boxSizing: 'border-box',
+          fontSize: theme.fontSizes.lg,
+        },
+        blockquote: {
+          fontSize: theme.fontSizes.md,
+          color: theme.colors.gray[500],
+        },
+        a: {
+          // color: theme.colors.gray[500],
+          textDecoration: 'underline dotted',
         },
       }}
     >
