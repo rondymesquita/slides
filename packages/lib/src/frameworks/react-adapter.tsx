@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Presentation, PresentationProvider } from '..';
+
+import { Splendid, SplendidProvider } from '..';
 
 interface ReactAdapterOptions {
   root: HTMLElement;
@@ -9,25 +10,23 @@ interface ReactAdapterOptions {
 }
 
 export const reactAdapter = ({
+  chakraTheme,
   root,
   slides,
-  chakraTheme,
 }: ReactAdapterOptions) => {
   const render = () => {
     ReactDOM.createRoot(root).render(
       // <React.StrictMode>
-      <PresentationProvider
+      <SplendidProvider
         chakraTheme={chakraTheme}
         slides={slides}
         theme={'classic'}
       >
-        <Presentation />
-      </PresentationProvider>
+        <Splendid />
+      </SplendidProvider>
       // </React.StrictMode>
     );
   };
 
-  return {
-    render,
-  };
+  return { render, };
 };

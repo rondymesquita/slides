@@ -1,88 +1,82 @@
-import react from '@vitejs/plugin-react';
-import markdownIt from 'markdown-it';
-import markdownItAttrs from 'markdown-it-attrs';
-import yml from 'js-yaml';
-import { log } from 'console';
 import crypto from 'crypto';
-// import { Mode, plugin as mdPlugin } from 'vite-plugin-markdown';
-// import * as vite from 'vite';
-// import { extractFrontMatter } from './markdown/parsers/parse-frontmatter';
+import yml from 'js-yaml';
+import MarkdownIt from 'markdown-it';
 
-// md.use(markdownItAttrs);
-function myPlugin(md: markdownIt): void {
-  // md.block.
-  // md.renderer.rules.fence = function (tokens, idx, options, env, self) {
-  // console.log({ options, env, idx });
-  // };
-  // md.core.ruler.push("example", exampleRule)
-}
+import { Page } from '../domain/model/Page';
+
 
 const fileRegex = /\.(md)$/;
-const markdown = () => {
-  const md = markdownIt({
-    html: true,
-    highlight: function (str, lang) {
-      console.log({ lang });
-      if (lang === 'yml:splendid') return false;
-      return '';
-    },
-  });
 
-  // md.use(myPlugin);
+const createMarkdownParser = (md: MarkdownIt) => {
+  const parser = (sourceMarkdown: string): Page[] => {
+    const markdowns = sourceMarkdown.split('---');
+    const pages: Page[] = [];
+
+    console.log({ markdowns, }, markdowns.length);
+
+    for (let index = 0; index < markdowns.length; index++) {
+      const markdown = markdowns[index];
+      const tokens = md.parse(markdown, {});
+
+      const id = crypto.randomBytes(16).toString('hex');
+
+      let isThereAttributesToParse = false;
+
+      loopTokens: for (let index = 0; index < tokens.length; index++) {
+        const token = tokens[index];
+
+        if (token.type === 'fence' && token.info === 'yml:splendid') {
+          const attributes = yml.load(token.content);
+          isThereAttributesToParse = true;
+
+          tokens[index].hidden = true;
+          tokens[index].content = '';
+
+          const html = md.renderer.render(tokens, md.options, {});
+
+          pages.push(new Page({
+            attributes,
+            html,
+            id,
+          }));
+          break loopTokens;
+        }
+      }
+
+      if (!isThereAttributesToParse) {
+        const html = md.renderer.render(tokens, md.options, {});
+        pages.push(new Page({
+          attributes: { },
+          html,
+          id,
+        }));
+      }
+    }
+
+    console.log({ pages, });
+
+    return pages;
+  }
+
+  return parser
+}
+
+const markdown = () => {
+
+  const md = new MarkdownIt({ html: true, });
+
 
   return {
     name: 'splendid:markdown',
     enforce: 'pre',
     transform(src: string, id: string) {
       if (fileRegex.test(id)) {
-        const markdowns = src.split('---');
-
-        const pages = [];
-        for (let index = 0; index < markdowns.length; index++) {
-          const markdown = markdowns[index];
-          const tokens = md.parse(markdown, {});
-
-          const id = crypto.randomBytes(16).toString('hex');
-
-          let isThereAttributesToParse = false;
-
-          loopTokens: for (let index = 0; index < tokens.length; index++) {
-            const token = tokens[index];
-
-            if (token.type === 'fence' && token.info === 'yml:splendid') {
-              const attributes = yml.load(token.content);
-              isThereAttributesToParse = true;
-
-              tokens[index].hidden = true;
-              tokens[index].content = '';
-              console.log({ token });
-
-              const html = md.renderer.render(tokens, md.options, {});
-
-              pages.push({
-                attributes,
-                html,
-                id,
-              });
-              break loopTokens;
-            }
-          }
-
-          // md.ena
-
-          if (!isThereAttributesToParse) {
-            const html = md.renderer.render(tokens, md.options, {});
-            pages.push({
-              attributes: {},
-              html,
-              id,
-            });
-          }
-        }
+        const parser = createMarkdownParser(md)
+        const pages = parser(src)
 
         const contextCode = `const pages = ${JSON.stringify(pages)}`;
-        const exportsCode = `export { pages }`;
-        const code = [contextCode, exportsCode].join('\n');
+        const exportsCode = 'export { pages }';
+        const code = [contextCode, exportsCode,].join('\n');
         return {
           code,
           map: null,
@@ -92,7 +86,7 @@ const markdown = () => {
   };
 };
 
-export default function splendid() {
+export const splendid = () => {
   return [
     markdown(),
     // react({ include: /\.(js|jsx|ts|tsx|md)$/ }),

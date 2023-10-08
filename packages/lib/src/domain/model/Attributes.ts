@@ -1,3 +1,4 @@
-export interface Attributes {
-  slideLayout: string;
+export interface PageAttributes {
+  layout?: string;
+
 }
