@@ -12,8 +12,6 @@ const createMarkdownParser = (md: MarkdownIt) => {
     const markdowns = sourceMarkdown.split('---');
     const pages: Page[] = [];
 
-    console.log({ markdowns, }, markdowns.length);
-
     for (let index = 0; index < markdowns.length; index++) {
       const markdown = markdowns[index];
       const tokens = md.parse(markdown, {});
@@ -52,8 +50,6 @@ const createMarkdownParser = (md: MarkdownIt) => {
         }));
       }
     }
-
-    console.log({ pages, });
 
     return pages;
   }
