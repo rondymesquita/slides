@@ -1,65 +1,41 @@
-import crypto from 'crypto';
-import yml from 'js-yaml';
+// eslint-disable-next-line
+import Prism from 'prismjs';
+// import 'prismjs/plugins/line-numbers/prism-line-numbers';
+// import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+// import 'prismjs/components/prism-typescript';
 import MarkdownIt from 'markdown-it';
 
-import { Page } from '../domain/model/Page';
-
+import { createMarkdownParser } from './create-markdown-parser';
+import { codeHighlightPrism } from './markdown/code-highlight-prism';
 
 const fileRegex = /\.(md)$/;
 
-const createMarkdownParser = (md: MarkdownIt) => {
-  const parser = (sourceMarkdown: string): Page[] => {
-    const markdowns = sourceMarkdown.split('---');
-    const pages: Page[] = [];
-
-    for (let index = 0; index < markdowns.length; index++) {
-      const markdown = markdowns[index];
-      const tokens = md.parse(markdown, {});
-
-      const id = crypto.randomBytes(16).toString('hex');
-
-      let isThereAttributesToParse = false;
-
-      loopTokens: for (let index = 0; index < tokens.length; index++) {
-        const token = tokens[index];
-
-        if (token.type === 'fence' && token.info === 'yml:splendid') {
-          const attributes = yml.load(token.content);
-          isThereAttributesToParse = true;
-
-          tokens[index].hidden = true;
-          tokens[index].content = '';
-
-          const html = md.renderer.render(tokens, md.options, {});
-
-          pages.push(new Page({
-            attributes,
-            html,
-            id,
-          }));
-          break loopTokens;
-        }
-      }
-
-      if (!isThereAttributesToParse) {
-        const html = md.renderer.render(tokens, md.options, {});
-        pages.push(new Page({
-          attributes: { },
-          html,
-          id,
-        }));
-      }
-    }
-
-    return pages;
-  }
-
-  return parser
-}
 
 const markdown = () => {
 
-  const md = new MarkdownIt({ html: true, });
+  // vite.loadConfigFromFile({
+  //   command: 'serve',
+  //   mode: 'development',
+  // }, path.join(process.cwd(), 'vite.config.ts'))
+
+  const md = new MarkdownIt({
+    html: true,
+    // highlight(str, lang, attrs) {
+    //   // Prism.manual = true;
+    //   if (lang === 'yml:splendid') return str
+    //   console.log({
+    //     str,
+    //     lang,
+    //   })
+    //   // console.log(Prism)
+
+    //   const html = Prism.highlight(str, Prism.languages[lang], lang);
+    //   console.log({ html, })
+    //   // return html
+    //   return str
+    // },
+  });
+  md.use(codeHighlightPrism)
 
 
   return {
@@ -69,6 +45,8 @@ const markdown = () => {
       if (fileRegex.test(id)) {
         const parser = createMarkdownParser(md)
         const pages = parser(src)
+        console.log(pages[0]);
+
 
         const contextCode = `const pages = ${JSON.stringify(pages)}`;
         const exportsCode = 'export { pages }';

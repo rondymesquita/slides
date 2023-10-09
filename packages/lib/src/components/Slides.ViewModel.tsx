@@ -4,7 +4,7 @@ import { Route } from 'react-router';
 import { Markdown, Page, Slide } from '..';
 import { merge } from '../util/merge-object';
 
-export default function slidesViewModel(markdown: Markdown, theme: string) {
+export default function slidesViewModel(markdown: Markdown, theme: string, onLoad: () => void) {
 
   const [slides, setSlides,] = useState<JSX.Element[]>([]);
   const [isLoaded, setLoaded,] = useState(false);
@@ -48,8 +48,14 @@ export default function slidesViewModel(markdown: Markdown, theme: string) {
     return () => {};
   }, []);
 
+  useEffect(() => {
+    if (isLoaded) {
+      onLoad()
+    }
+  }, [isLoaded,])
+
   return {
     slides,
-    isLoaded, 
+    isLoaded,
   };
 }

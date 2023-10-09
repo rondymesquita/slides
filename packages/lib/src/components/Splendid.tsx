@@ -1,34 +1,55 @@
 import { Box, ChakraProvider, extendTheme } from '@chakra-ui/react';
 import React, { useEffect, useRef } from 'react';
 
-import { Slides } from '..';
+import { PageAttributes, Slides } from '..';
 import { useSplendidContext } from '../contexts/SplendidContext';
 import { useElementScale } from '../hooks/useElementScale';
+import { loadPrism } from '../infra/prism/prism';
 import globalTheme from '../styles/global.theme';
+import { merge } from '../util/merge-object';
 
 export interface SplendidProps {}
 // eslint-disable-next-line no-redeclare
-export default function Splendid() {
+export default function Splendid({ m, t, }: any) {
   const {
     chakraTheme,
-    markdown,
+    markdown = m,
     setChakraTheme,
-    theme,
+    theme = t,
   } = useSplendidContext();
 
+  const { pages, } = markdown
+  const globalAttributes = merge<PageAttributes>(pages[0].attributes, {
+    layout: 'Section',
+    syntaxHighlight: 'prism',
+  })
+  console.log(globalAttributes)
+
   const loadTheme = async() => {
-    if (Object.keys(chakraTheme).length === 0) {
+    if (chakraTheme && Object.keys(chakraTheme).length === 0) {
       const themeTheme = await import(`../themes/${theme}/theme.ts`);
       const finalTheme = extendTheme(globalTheme, themeTheme.default);
       setChakraTheme(finalTheme);
+    } else {
+      setChakraTheme(globalTheme);
     }
   };
   useEffect(() => {
     loadTheme();
   }, []);
 
+  // useLayoutEffect(() => {
+  //   setTimeout(() => {
+  //     loadPrism()
+  //   }, 1000)
+  // }, [])
+
+  const loadLibraries = () => {
+    loadPrism()
+  }
+
   const containerRef = useRef<HTMLElement>();
-  const { scale, } = useElementScale(containerRef);
+  const { scale, } = useElementScale(containerRef as React.MutableRefObject<HTMLElement>);
 
   return (
     <div className='splendid'>
@@ -46,7 +67,7 @@ export default function Splendid() {
               transformOrigin: 'top left',
             }}
           >
-            <Slides markdown={markdown} theme={theme} />
+            <Slides markdown={markdown} theme={theme} onLoad={() => loadLibraries()}/>
           </Box>
         </Box>
       </ChakraProvider>

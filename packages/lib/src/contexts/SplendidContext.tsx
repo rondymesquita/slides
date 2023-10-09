@@ -1,12 +1,19 @@
 import React, { useContext, useState } from 'react';
 
+import { Markdown } from '..';
+
 type SplendidContextProps = {
-  isOpen: boolean;
+  theme: string,
+  setTheme: React.Dispatch<React.SetStateAction<string>>,
+  chakraTheme: Record<string, any>,
+  setChakraTheme: React.Dispatch<React.SetStateAction<Record<string, any>>>,
+  markdown: Markdown,
+  setMarkdown: React.Dispatch<React.SetStateAction<Markdown>>,
 };
 
-const SplendidContext = React.createContext<any>({} as SplendidContextProps);
+const SplendidContext = React.createContext<SplendidContextProps>({} as SplendidContextProps);
 
-export const useSplendidContext = () => useContext(SplendidContext);
+export const useSplendidContext = () => useContext<SplendidContextProps>(SplendidContext);
 
 export function SplendidProvider({
   chakraTheme: inputChakraTheme = {},
@@ -14,9 +21,9 @@ export function SplendidProvider({
   markdown: inputMarkdown,
   theme: inputTheme = 'classic',
 }: any) {
-  const [theme, setTheme,] = useState(inputTheme);
-  const [chakraTheme, setChakraTheme,] = useState(inputChakraTheme);
-  const [markdown, setMarkdown,] = useState(inputMarkdown);
+  const [theme, setTheme,] = useState<string>(inputTheme);
+  const [chakraTheme, setChakraTheme,] = useState<Record<string, any>>(inputChakraTheme);
+  const [markdown, setMarkdown,] = useState<Markdown>(inputMarkdown);
   const value = {
     theme,
     setTheme,

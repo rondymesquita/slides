@@ -7,11 +7,18 @@ title: fulano
 
 Description
 
+```js
+console.log('hello')
+const music = {
+	name: 'My Immortal',
+	artist: 'Evanescence'
+}
+```
 
 
 ---
 ```yml:splendid
-layout: Section
+# layout: Cover
 ```
 
 # What is Splendid?
@@ -19,9 +26,11 @@ layout: Section
 > Splendid is a markdown based presentation framework that uses Vite and React.
 
 
+<div id='test'>
 <Box p="5" background="red" width="100px" height="100px">
 Teste
 </Box>
+</div>
 
 - Create the content Markdown
 - Chakra UI out-of-the-box

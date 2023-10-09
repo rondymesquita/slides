@@ -4,8 +4,8 @@ module.exports = {
     browser: true,
     es2020: true,
   },
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
-  ignorePatterns: ['dist'],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended',],
+  ignorePatterns: ['dist',],
   parser: '@typescript-eslint/parser',
   plugins: [
     'simple-import-sort',
@@ -15,7 +15,7 @@ module.exports = {
   ],
   rules: {
     // 'multiline-comment-style': ['error',],
-    'comma-style': ['error', 'last'],
+    'comma-style': ['error', 'last',],
     'comma-dangle': [
       'error',
       {
@@ -26,12 +26,12 @@ module.exports = {
         functions: 'never',
       },
     ],
-    quotes: ['error', 'single'],
+    quotes: ['error', 'single',],
     // 'max-len': ['error', { code: 80 }],
-    'space-infix-ops': ['error'],
-    indent: ['error', 2],
-    'space-in-parens': ['error', 'never'],
-    'function-paren-newline': ['error', 'consistent'],
+    'space-infix-ops': ['error',],
+    indent: ['error', 2,],
+    'space-in-parens': ['error', 'never',],
+    'function-paren-newline': ['error', 'consistent',],
     'comma-spacing': [
       'error',
       {
@@ -43,13 +43,13 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'warn',
     '@typescript-eslint/no-this-alias': 'off',
     // '@typescript-eslint/indent': ['error', 2],
-    'new-cap': ['error'],
-    'object-curly-spacing': ['error', 'always'],
+    'new-cap': ['error',],
+    'object-curly-spacing': ['error', 'always',],
     'object-curly-newline': [
       'error',
       {
-        ObjectExpression: { multiline: true },
-        ObjectPattern: { multiline: true },
+        ObjectExpression: { multiline: true, },
+        ObjectPattern: { multiline: true, },
         ImportDeclaration: 'never',
         ExportDeclaration: {
           multiline: true,
@@ -60,7 +60,7 @@ module.exports = {
     // 'sort-keys': ['error', 'asc', { 'caseSensitive': true, 'natural': true, 'minKeys': 2, },],
     'object-property-newline': [
       'error',
-      { allowAllPropertiesOnSameLine: false },
+      { allowAllPropertiesOnSameLine: false, },
     ],
     'array-bracket-newline': [
       'error',
@@ -71,14 +71,15 @@ module.exports = {
     ],
     'sort-destructure-keys/sort-destructure-keys': [
       'error',
-      { caseSensitive: false },
+      { caseSensitive: false, },
     ],
-    'new-parens': ['error', 'always'],
+    'new-parens': ['error', 'always',],
     'newline-destructuring/newline': 'error',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
-    'unused-imports/no-unused-imports': ['error'],
-    'space-before-function-paren': ['error', 'never'],
+    'unused-imports/no-unused-imports': ['error',],
+    'space-before-function-paren': ['error', 'never',],
     '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
   },
 };

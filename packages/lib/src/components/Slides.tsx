@@ -9,10 +9,15 @@ import slidesViewModel from './Slides.ViewModel';
 export interface SlidesProps {
   markdown: Markdown;
   theme: string;
+  onLoad?: () => void
 }
 
-export default function Slides({ markdown, theme, }: SlidesProps) {
-  const { isLoaded, slides, } = slidesViewModel(markdown, theme)
+export default function Slides({
+  markdown,
+  onLoad = () => {},
+  theme,
+}: SlidesProps) {
+  const { isLoaded, slides, } = slidesViewModel(markdown, theme, onLoad)
 
 
   return (

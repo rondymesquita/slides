@@ -1,9 +1,9 @@
 // import react from '@vitejs/plugin-react';
 import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 
 // import { splendid } from '@rondymesquita/splendid';
 import { splendid } from '../lib/src';
-import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,8 +13,9 @@ export default defineConfig({
   // splendid: {
   //   fulano: 'rondy',
   // },
-  plugins: [react(), splendid()],
-  server: {
-    port: 5173,
-  },
+  plugins: [
+    react({ include: /\.(js|jsx|ts|tsx|md|css)$/, }),
+    splendid(),
+  ],
+  server: { port: 5173, },
 });
