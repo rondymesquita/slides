@@ -10,21 +10,20 @@ import { merge } from '../util/merge-object';
 
 export interface SplendidProps {}
 // eslint-disable-next-line no-redeclare
-export default function Splendid({ m, t, }: any) {
+export default function Splendid() {
   const {
     chakraTheme,
-    markdown = m,
+    markdown,
     setChakraTheme,
-    theme = t,
+    theme,
   } = useSplendidContext();
 
   const { attributes, } = markdown
   const globalAttributes = merge<MarkdownAttributes>(attributes, {
     syntaxHighlight: 'prism',
     syntaxHighlightEnabled: true,
-    theme: 'classic', 
+    theme: 'classic',
   })
-  console.log({ globalAttributes, })
 
   const loadTheme = async() => {
     if (chakraTheme && Object.keys(chakraTheme).length === 0) {

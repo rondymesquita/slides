@@ -1,9 +1,10 @@
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router';
+
 import { useKeyboardController } from '../controllers/keyboard-controller';
 import { useMouseController } from '../controllers/mouse-controller';
 
-export default function SlideNavigator({ size }: any) {
+export default function SlideNavigator({ size, }: any) {
   const slideIndex = useRef(0);
 
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Controller } from './controller';
+
 import { IController } from './icontroller';
 
 export const useKeyboardController = (controller: IController) => {
@@ -17,4 +17,5 @@ export const useKeyboardController = (controller: IController) => {
       document.removeEventListener('keydown', onKeyDown);
     };
   }, []);
+
 };

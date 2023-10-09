@@ -1,9 +1,9 @@
 import crypto from 'crypto'
 import yml from 'js-yaml'
 
-import { Page } from '..';
+import { Page } from '../domain/model/Page';
 
-export const createMarkdownParser = (md: MarkdownIt) => {
+export const createMarkdownParser = (md: markdownit) => {
   const parser = (sourceMarkdown: string): Page[] => {
     const markdowns = sourceMarkdown.split('---');
     const pages: Page[] = [];

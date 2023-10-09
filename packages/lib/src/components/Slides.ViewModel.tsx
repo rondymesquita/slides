@@ -1,17 +1,58 @@
-import { JSX, useEffect, useState } from 'react';
-import { Route } from 'react-router';
+import { useEffect, useState } from 'react';
 
-import { Markdown, Page, Slide } from '..';
+import { Markdown } from '..';
+import { useKeyboardController } from '../controllers/keyboard-controller';
+import { useMouseController } from '../controllers/mouse-controller';
+import { SlideModel } from '../domain/model/SlideModel';
 import { merge } from '../util/merge-object';
+
+export const useSlideNavigator = (slidesCount: number, initialIndex: number) => {
+  // const slideIndex = useRef(0);
+  const [activeSlideIndex, setActiveSlideIndex,] = useState<number>(initialIndex)
+
+  useEffect(() =>{
+    // console.log({ activeSlideIndex, })
+  }, [activeSlideIndex,])
+
+  const onNext = () => {
+    setActiveSlideIndex((index) => {
+      const newIndex = index < slidesCount - 1 ? index + 1 : index;
+      console.log(newIndex)
+      return newIndex
+    });
+  }
+
+  const onPrev = () => {
+    setActiveSlideIndex((index) => {
+      const newIndex = index > 0 ? index - 1 : index;
+      console.log(newIndex)
+      return newIndex
+    });
+  }
+  useKeyboardController({
+    onNext,
+    onPrev,
+  });
+
+  useMouseController({ onNext, });
+
+  return { activeSlideIndex, }
+}
+
+
 
 export default function slidesViewModel(markdown: Markdown, theme: string, onLoad: () => void) {
 
-  const [slides, setSlides,] = useState<JSX.Element[]>([]);
+  const [slides, setSlides,] = useState<SlideModel[]>([]);
   const [isLoaded, setLoaded,] = useState(false);
-  const pages: Array<Page> = markdown.pages;
+  const { activeSlideIndex, } = useSlideNavigator(markdown.pages.length, 0)
 
-  const loadSlides = async() => {
-    const promises = pages.map(async({ attributes, html, }, index: number) => {
+  const loadLayoutTemplates = async() => {
+    const promises = markdown.pages.map(async({
+      attributes,
+      html,
+      id,
+    }, index: number) => {
       const attrs = merge(attributes, { layout: 'Section', });
 
       if (index === 0) {
@@ -22,32 +63,22 @@ export default function slidesViewModel(markdown: Markdown, theme: string, onLoa
         `../themes/${theme}/layouts/${attrs.layout}.tsx`
       );
 
-      const SlideComponent = () => (
-        <Slide
-          key={index}
-          layout={LayoutComponent.default}
-          active={true}
-          html={html}
-        />
-      );
-      const RouteComponent = (
-        <Route
-          key={index}
-          path={`/${index}`}
-          element={<SlideComponent />}
-        ></Route>
-      );
-
-      return RouteComponent;
+      // return LayoutComponent;d
+      return {
+        attributes: attrs,
+        html,
+        id,
+        layout: LayoutComponent,
+      }
     });
 
-    const RouteComponents = await Promise.all(promises);
-    setSlides(RouteComponents);
+    const s = await Promise.all(promises);
+    setSlides(s)
     setLoaded(true);
   };
 
   useEffect(() => {
-    loadSlides();
+    loadLayoutTemplates();
 
     return () => {};
   }, []);
@@ -61,5 +92,6 @@ export default function slidesViewModel(markdown: Markdown, theme: string, onLoa
   return {
     slides,
     isLoaded,
+    activeSlideIndex,
   };
 }

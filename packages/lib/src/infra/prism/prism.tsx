@@ -16,7 +16,7 @@ export const loadPrism = async(options?: LoadPrimsOptions) => {
 
   const { theme, } = merge(options, { theme: 'prism-dark', });
 
-  import('prismjs/themes/prism-coy.css')
+  import('./themes/prism-coy.css')
   import('prismjs/plugins/line-numbers/prism-line-numbers')
   import('prismjs/plugins/line-numbers/prism-line-numbers.css')
 

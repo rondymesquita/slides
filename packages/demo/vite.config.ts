@@ -13,9 +13,6 @@ export default defineConfig({
   // splendid: {
   //   fulano: 'rondy',
   // },
-  plugins: [
-    react({ include: /\.(js|jsx|ts|tsx|md|css)$/, }),
-    splendid(),
-  ],
+  plugins: [react(), splendid(),],
   server: { port: 5173, },
 });

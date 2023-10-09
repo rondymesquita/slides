@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
+
 import { IController } from './icontroller';
 
-export const useMouseController = (controller: IController) => {
+export const useMouseController = (controller: Pick<IController, 'onNext'>) => {
   const onClick = () => {
     controller.onNext();
   };

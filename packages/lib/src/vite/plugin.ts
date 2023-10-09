@@ -1,27 +1,15 @@
-// eslint-disable-next-line
-import Prism from 'prismjs';
-// import 'prismjs/plugins/line-numbers/prism-line-numbers';
-// import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
-// import 'prismjs/components/prism-typescript';
 import MarkdownIt from 'markdown-it';
 
+import { MarkdownAttributes } from '..';
 import { createMarkdownParser } from './create-markdown-parser';
 import { codeHighlightPrism } from './markdown/code-highlight-prism';
-import { MarkdownAttributes } from '..';
 
 const fileRegex = /\.(md)$/;
 
-
 const markdown = () => {
-
-  // vite.loadConfigFromFile({
-  //   command: 'serve',
-  //   mode: 'development',
-  // }, path.join(process.cwd(), 'vite.config.ts'))
 
   const md = new MarkdownIt({ html: true, });
   md.use(codeHighlightPrism)
-
 
   return {
     name: 'splendid:markdown',
@@ -33,8 +21,8 @@ const markdown = () => {
 
         const attributes = pages[0].attributes as MarkdownAttributes
 
-        const contextPages = `const pages = ${JSON.stringify(pages)}`;
-        const contextAttributes = `const attributes = ${JSON.stringify(attributes)}`;
+        const contextPages = `const pages = ${JSON.stringify(pages)};`;
+        const contextAttributes = `const attributes = ${JSON.stringify(attributes)};`;
         const context = [contextPages, contextAttributes,].join('\n')
 
         const exportsCode = 'export { pages, attributes }';
