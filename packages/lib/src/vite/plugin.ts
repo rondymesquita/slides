@@ -7,6 +7,7 @@ import MarkdownIt from 'markdown-it';
 
 import { createMarkdownParser } from './create-markdown-parser';
 import { codeHighlightPrism } from './markdown/code-highlight-prism';
+import { MarkdownAttributes } from '..';
 
 const fileRegex = /\.(md)$/;
 
@@ -18,23 +19,7 @@ const markdown = () => {
   //   mode: 'development',
   // }, path.join(process.cwd(), 'vite.config.ts'))
 
-  const md = new MarkdownIt({
-    html: true,
-    // highlight(str, lang, attrs) {
-    //   // Prism.manual = true;
-    //   if (lang === 'yml:splendid') return str
-    //   console.log({
-    //     str,
-    //     lang,
-    //   })
-    //   // console.log(Prism)
-
-    //   const html = Prism.highlight(str, Prism.languages[lang], lang);
-    //   console.log({ html, })
-    //   // return html
-    //   return str
-    // },
-  });
+  const md = new MarkdownIt({ html: true, });
   md.use(codeHighlightPrism)
 
 
@@ -45,12 +30,15 @@ const markdown = () => {
       if (fileRegex.test(id)) {
         const parser = createMarkdownParser(md)
         const pages = parser(src)
-        console.log(pages[0]);
 
+        const attributes = pages[0].attributes as MarkdownAttributes
 
-        const contextCode = `const pages = ${JSON.stringify(pages)}`;
-        const exportsCode = 'export { pages }';
-        const code = [contextCode, exportsCode,].join('\n');
+        const contextPages = `const pages = ${JSON.stringify(pages)}`;
+        const contextAttributes = `const attributes = ${JSON.stringify(attributes)}`;
+        const context = [contextPages, contextAttributes,].join('\n')
+
+        const exportsCode = 'export { pages, attributes }';
+        const code = [context, exportsCode,].join('\n');
         return {
           code,
           map: null,

@@ -1,7 +1,7 @@
 import { Box, ChakraProvider, extendTheme } from '@chakra-ui/react';
 import React, { useEffect, useRef } from 'react';
 
-import { PageAttributes, Slides } from '..';
+import { MarkdownAttributes, Slides } from '..';
 import { useSplendidContext } from '../contexts/SplendidContext';
 import { useElementScale } from '../hooks/useElementScale';
 import { loadPrism } from '../infra/prism/prism';
@@ -18,12 +18,13 @@ export default function Splendid({ m, t, }: any) {
     theme = t,
   } = useSplendidContext();
 
-  const { pages, } = markdown
-  const globalAttributes = merge<PageAttributes>(pages[0].attributes, {
-    layout: 'Section',
+  const { attributes, } = markdown
+  const globalAttributes = merge<MarkdownAttributes>(attributes, {
     syntaxHighlight: 'prism',
+    syntaxHighlightEnabled: true,
+    theme: 'classic', 
   })
-  console.log(globalAttributes)
+  console.log({ globalAttributes, })
 
   const loadTheme = async() => {
     if (chakraTheme && Object.keys(chakraTheme).length === 0) {
@@ -37,12 +38,6 @@ export default function Splendid({ m, t, }: any) {
   useEffect(() => {
     loadTheme();
   }, []);
-
-  // useLayoutEffect(() => {
-  //   setTimeout(() => {
-  //     loadPrism()
-  //   }, 1000)
-  // }, [])
 
   const loadLibraries = () => {
     loadPrism()

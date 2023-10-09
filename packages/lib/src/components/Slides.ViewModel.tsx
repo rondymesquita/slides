@@ -14,6 +14,10 @@ export default function slidesViewModel(markdown: Markdown, theme: string, onLoa
     const promises = pages.map(async({ attributes, html, }, index: number) => {
       const attrs = merge(attributes, { layout: 'Section', });
 
+      if (index === 0) {
+        attrs.layout = 'Cover'
+      }
+
       const LayoutComponent = await import(
         `../themes/${theme}/layouts/${attrs.layout}.tsx`
       );

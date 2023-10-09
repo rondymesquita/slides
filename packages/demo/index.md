@@ -1,6 +1,6 @@
 ```yml:splendid
-layout: Cover
 title: fulano
+theme: classic
 ```
 
 # My Presentation
@@ -8,11 +8,12 @@ title: fulano
 Description
 
 ```js
-console.log('hello')
 const music = {
 	name: 'My Immortal',
 	artist: 'Evanescence'
 }
+
+console.log(music)
 ```
 
 
