@@ -1,7 +1,9 @@
 import { Flex } from '@chakra-ui/react';
-import React, { Suspense } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import React from 'react';
 
 import { Slide } from '..';
+import { useSplendidContext } from '../contexts/SplendidContext';
 import { Markdown } from '../domain/model/Markdown';
 import { SlideModel } from '../domain/model/SlideModel';
 import slidesViewModel from './Slides.ViewModel';
@@ -12,6 +14,8 @@ export interface SlidesProps {
   onLoad?: () => void
 }
 
+
+
 export default function Slides({
   markdown,
   onLoad = () => {},
@@ -19,24 +23,38 @@ export default function Slides({
 }: SlidesProps) {
   const {
     activeSlideIndex,
-    isLoaded,
     slides,
+    transition,
   } = slidesViewModel(markdown, theme, onLoad)
-
+  const { animationDuration, } = useSplendidContext();
 
   return (
     <>
-      <Flex className='slides' width={'100%'} height={'100%'}>
-        <Suspense fallback={<div>loading...</div>}>
-          {slides.map((slide: SlideModel, index: number) => {
-            return <Slide
-              key={slide.id}
-              layout={slide.layout.default}
-              active={activeSlideIndex === index}
-              html={slide.html}
-            />
-          })}
-        </Suspense>
+      <Flex className='slides' width={'100%'} height={'100%'} position={'relative'}>
+        {slides.map((slide: SlideModel, index: number) => {
+          return (
+            <AnimatePresence key={slide.id}>
+              {activeSlideIndex === index && <motion.div key={slide.id} style={{
+                height: '100%',
+                width: '100%',
+                position: 'absolute',
+              }}
+              initial={transition.initial}
+              animate={transition.animate}
+              exit={transition.exit}
+              transition={{ duration: animationDuration, }}
+              >
+
+                <Slide
+                  key={slide.id}
+                  layout={slide.layout.default}
+                  active={true}
+                  html={slide.html}
+                />
+              </motion.div>}
+            </AnimatePresence>
+          )
+        })}
       </Flex>
     </>
   );

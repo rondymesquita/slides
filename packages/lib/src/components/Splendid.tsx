@@ -14,6 +14,7 @@ export default function Splendid() {
   const {
     chakraTheme,
     markdown,
+    presentationSize,
     setChakraTheme,
     theme,
   } = useSplendidContext();
@@ -50,8 +51,8 @@ export default function Splendid() {
       <ChakraProvider theme={chakraTheme}>
         <Box position={'relative'} width='100vw' height='100vh'>
           <Box
-            width='980px'
-            height='552px'
+            width={presentationSize.width}
+            height={presentationSize.height}
             ref={containerRef}
             position={'absolute'}
             left={'50%'}

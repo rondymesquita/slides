@@ -5,7 +5,7 @@ theme: classic
 
 # My Presentation
 
-Description
+This is my description
 
 ```js
 const music = {
@@ -24,7 +24,7 @@ console.log(music)
 
 # What is Splendid?
 
-> Splendid is a markdown based presentation framework that uses Vite and React.
+> Splendid is a markdown content based presentation framework that uses Vite and React.
 
 
 <div id='test'>
@@ -48,4 +48,4 @@ Read more about [Splendid]()
 
 
 ---
-## slide 3
+# Slide 3

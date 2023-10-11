@@ -1,51 +1,21 @@
 import { useEffect, useState } from 'react';
 
 import { Markdown } from '..';
-import { useKeyboardController } from '../controllers/keyboard-controller';
-import { useMouseController } from '../controllers/mouse-controller';
 import { SlideModel } from '../domain/model/SlideModel';
+import { useSlideNavigator } from '../hooks/useSlideNavigation/useSlideNavigation';
 import { merge } from '../util/merge-object';
-
-export const useSlideNavigator = (slidesCount: number, initialIndex: number) => {
-  // const slideIndex = useRef(0);
-  const [activeSlideIndex, setActiveSlideIndex,] = useState<number>(initialIndex)
-
-  useEffect(() =>{
-    // console.log({ activeSlideIndex, })
-  }, [activeSlideIndex,])
-
-  const onNext = () => {
-    setActiveSlideIndex((index) => {
-      const newIndex = index < slidesCount - 1 ? index + 1 : index;
-      console.log(newIndex)
-      return newIndex
-    });
-  }
-
-  const onPrev = () => {
-    setActiveSlideIndex((index) => {
-      const newIndex = index > 0 ? index - 1 : index;
-      console.log(newIndex)
-      return newIndex
-    });
-  }
-  useKeyboardController({
-    onNext,
-    onPrev,
-  });
-
-  useMouseController({ onNext, });
-
-  return { activeSlideIndex, }
-}
-
 
 
 export default function slidesViewModel(markdown: Markdown, theme: string, onLoad: () => void) {
 
   const [slides, setSlides,] = useState<SlideModel[]>([]);
   const [isLoaded, setLoaded,] = useState(false);
-  const { activeSlideIndex, } = useSlideNavigator(markdown.pages.length, 0)
+  const {
+    activeSlideIndex,
+    transition,
+    transitionDirection,
+  } = useSlideNavigator(markdown.pages.length, 0)
+
 
   const loadLayoutTemplates = async() => {
     const promises = markdown.pages.map(async({
@@ -63,7 +33,6 @@ export default function slidesViewModel(markdown: Markdown, theme: string, onLoa
         `../themes/${theme}/layouts/${attrs.layout}.tsx`
       );
 
-      // return LayoutComponent;d
       return {
         attributes: attrs,
         html,
@@ -90,8 +59,10 @@ export default function slidesViewModel(markdown: Markdown, theme: string, onLoa
   }, [isLoaded,])
 
   return {
+    transition,
     slides,
     isLoaded,
     activeSlideIndex,
+    transitionDirection,
   };
 }

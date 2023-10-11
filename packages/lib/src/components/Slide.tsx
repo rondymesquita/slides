@@ -19,9 +19,9 @@ export default function Slide({
 }: SlideProps) {
   return (
     <Flex hidden={!active} height={'100%'} width={'100%'} className='slide'>
+      {/* <Flex height={'100%'} width={'100%'} className='slide'> */}
       <Layout>
         <div
-          data-auto-animate
           dangerouslySetInnerHTML={createMarkup(html)}
         ></div>
       </Layout>
