@@ -1,6 +1,7 @@
 ```yml:splendid
 title: fulano
 theme: classic
+transitionName: 'fade'
 ```
 
 # My Presentation

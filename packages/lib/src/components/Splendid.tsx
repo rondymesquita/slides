@@ -1,12 +1,12 @@
 import { Box, ChakraProvider, extendTheme } from '@chakra-ui/react';
 import React, { useEffect, useRef } from 'react';
 
-import { MarkdownAttributes, Slides } from '..';
+import { Slides } from '..';
+import { useSetupContext } from '../contexts/SetupContext';
 import { useSplendidContext } from '../contexts/SplendidContext';
 import { useElementScale } from '../hooks/useElementScale';
 import { loadPrism } from '../infra/prism/prism';
 import globalTheme from '../styles/global.theme';
-import { merge } from '../util/merge-object';
 
 export interface SplendidProps {}
 // eslint-disable-next-line no-redeclare
@@ -14,17 +14,16 @@ export default function Splendid() {
   const {
     chakraTheme,
     markdown,
-    presentationSize,
     setChakraTheme,
-    theme,
-  } = useSplendidContext();
+  } = useSetupContext();
 
-  const { attributes, } = markdown
-  const globalAttributes = merge<MarkdownAttributes>(attributes, {
-    syntaxHighlight: 'prism',
-    syntaxHighlightEnabled: true,
-    theme: 'classic',
-  })
+  const { presentationSize, theme, } = useSplendidContext()
+
+  // const globalAttributes = merge<MarkdownAttributes>(attributes, {
+  //   syntaxHighlight: 'prism',
+  //   syntaxHighlightEnabled: true,
+  //   theme: 'classic',
+  // })
 
   const loadTheme = async() => {
     if (chakraTheme && Object.keys(chakraTheme).length === 0) {

@@ -18,18 +18,28 @@ const getSlideTransition = (transitionDirection: TransitionDirection, presentati
 
   return transitionDirection === 'NEXT' ? transitionLeft : transitionRight
 }
+const getFadeTransition = (transitionDirection: TransitionDirection, presentationSize: PresentationSize) => {
+  const transition: Transition = {
+    initial: { opacity: 0, },
+    animate: { opacity: 1, },
+    exit: { opacity: 0, },
+  }
+
+  return transition
+}
 
 const transitions = new Map<TransitionName, (t: TransitionDirection, p: PresentationSize) => Transition>()
 transitions.set('slide', getSlideTransition)
+transitions.set('fade', getFadeTransition)
 
-export const useSlideTransition = (transitionName: TransitionName, transitionDirection: TransitionDirection, presentationSize: PresentationSize) => {
+export const useSlideTransition = (name: TransitionName, direction: TransitionDirection, presentationSize: PresentationSize) => {
 
-  const [transition, setTransition,] = useState<Transition>();
+  const [transition, setTransition,] = useState<Transition>(getSlideTransition(direction, presentationSize));
 
-  const t = transitions.get(transitionName) || getSlideTransition
+  const t = transitions.get(name) || getSlideTransition
 
   const updateTransition = () => {
-    setTransition(t(transitionDirection, presentationSize))
+    setTransition(t(direction, presentationSize))
   }
 
   return {

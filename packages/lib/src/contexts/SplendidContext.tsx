@@ -1,45 +1,31 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
-import { Markdown } from '..';
-import { PresentationSize } from '../domain/model/PresentationSize';
+import { MarkdownAttributes } from '..';
+import { merge } from '../util/merge-object';
+import { useSetupContext } from './SetupContext';
 
-type SplendidContextProps = {
-  theme: string,
-  setTheme: React.Dispatch<React.SetStateAction<string>>,
-  chakraTheme: Record<string, any>,
-  setChakraTheme: React.Dispatch<React.SetStateAction<Record<string, any>>>,
-  markdown: Markdown,
-  setMarkdown: React.Dispatch<React.SetStateAction<Markdown>>,
-  presentationSize: PresentationSize
-  animationDuration: number
-};
+type SplendidContextProps = Required<MarkdownAttributes>
 
 const SplendidContext = React.createContext<SplendidContextProps>({} as SplendidContextProps);
 
 export const useSplendidContext = () => useContext<SplendidContextProps>(SplendidContext);
 
-export function SplendidProvider({
-  chakraTheme: inputChakraTheme = {},
-  children,
-  markdown: inputMarkdown,
-  theme: inputTheme = 'classic',
-}: any) {
-  const [theme, setTheme,] = useState<string>(inputTheme);
-  const [chakraTheme, setChakraTheme,] = useState<Record<string, any>>(inputChakraTheme);
-  const [markdown, setMarkdown,] = useState<Markdown>(inputMarkdown);
-  const value: SplendidContextProps  = {
-    theme,
-    setTheme,
-    chakraTheme,
-    setChakraTheme,
-    markdown,
-    setMarkdown,
+export function SplendidProvider({ children, }: any) {
+
+  const { markdown, } = useSetupContext()
+
+  const value = merge(markdown.attributes, {
+    syntaxHighlight: 'prism',
+    syntaxHighlightEnabled: true,
+    theme: 'classic',
     presentationSize: {
       width: 980,
       height: 552,
     },
     animationDuration: 0.5,
-  };
+    transitionName: 'slide',
+  }) as SplendidContextProps
+
   return (
     <SplendidContext.Provider value={value}>
       {children}

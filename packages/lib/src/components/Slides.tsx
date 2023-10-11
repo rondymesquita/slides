@@ -15,7 +15,6 @@ export interface SlidesProps {
 }
 
 
-
 export default function Slides({
   markdown,
   onLoad = () => {},

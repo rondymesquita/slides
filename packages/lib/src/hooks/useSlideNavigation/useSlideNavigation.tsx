@@ -8,12 +8,12 @@ import { useLocalStorageState } from '../useLocalStorageState';
 import { useSlideTransition } from './useSlideTransition';
 
 export const useSlideNavigator = (slidesCount: number, initialIndex: number) => {
-  const { presentationSize, } = useSplendidContext();
+  const { presentationSize, transitionName,  } = useSplendidContext();
 
   const [activeSlideIndex, setActiveSlideIndex,] = useLocalStorageState<number>(initialIndex)
   const [transitionDirection, setTransitionDirection,] = useState<TransitionDirection>('NEXT');
   const [lastNavTime, setLastNavTime,] = useState<number>(new Date().getTime());
-  const { transition, updateTransition, } = useSlideTransition('slide', transitionDirection, presentationSize)
+  const { transition, updateTransition, } = useSlideTransition(transitionName, transitionDirection, presentationSize)
 
   const onNext = () => {
     setTransitionDirection('NEXT')
