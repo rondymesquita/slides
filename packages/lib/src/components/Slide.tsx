@@ -18,7 +18,7 @@ export default function Slide({
   layout: Layout,
 }: SlideProps) {
   return (
-    <Flex hidden={!active} height={'100%'} width={'100%'} className='slide'>
+    <Flex height={'100%'} width={'100%'} className='slide'>
       {/* <Flex height={'100%'} width={'100%'} className='slide'> */}
       <Layout>
         <div
