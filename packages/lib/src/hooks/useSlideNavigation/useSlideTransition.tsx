@@ -11,7 +11,7 @@ const getSlideTransition = (transitionDirection: TransitionDirection, presentati
     },
     visible: {
       translate: '0',
-      opacity: 0,
+      opacity: 1,
     },
     exit: {
       translate: `-${presentationSize.width}px`,
@@ -26,7 +26,7 @@ const getSlideTransition = (transitionDirection: TransitionDirection, presentati
     },
     visible: {
       translate: '0',
-      opacity: 0,
+      opacity: 1,
     },
     exit: {
       translate: `${presentationSize.width}px`,

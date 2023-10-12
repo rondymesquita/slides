@@ -4,17 +4,12 @@ export default extendTheme({
   styles: {
     global: {
       body: {},
-      '*': {
-        boxSizing: 'border-box',
-      },
+      '*': { boxSizing: 'border-box', },
       'html,body': {
         overflow: 'hidden',
         userSelect: 'none',
-        // background: 'black',
       },
-      '.border': {
-        border: '1px solid red',
-      },
+      '.border': { border: '1px solid red', },
     },
   },
 });

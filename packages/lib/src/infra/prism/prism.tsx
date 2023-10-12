@@ -1,8 +1,6 @@
 // eslint-disable-next-line
 import Prism from 'prismjs';
-// import 'prismjs/themes/prism-dark.css';
-// import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
-import 'prismjs/plugins/line-numbers/prism-line-numbers';
+
 import { merge } from '../../util/merge-object';
 
 
@@ -12,7 +10,7 @@ export interface LoadPrimsOptions {
   theme: string
 }
 
-export const loadPrism = async(options?: LoadPrimsOptions) => {
+export const loadPrism = (options?: LoadPrimsOptions) => {
 
   const { theme, } = merge(options, { theme: 'prism-dark', });
 

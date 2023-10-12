@@ -1,19 +1,18 @@
-import { extendTheme, theme } from '@chakra-ui/react';
-import Fonts from './Global';
 import './style.css';
+
+import { extendTheme, theme } from '@chakra-ui/react';
+
 
 export default extendTheme({
   fonts: {
-    heading: `'LibreBaskerville', sans-serif`,
-    body: `'LibreBaskerville', sans-serif`,
+    heading: 'LibreBaskerville, sans-serif',
+    body: 'LibreBaskerville, sans-serif',
   },
   styles: {
     global: {
       FontFace: {},
       body: {},
-      '*': {
-        boxSizing: 'border-box',
-      },
+      '*': { boxSizing: 'border-box', },
       'html,body': {
         fontFamily: 'LibreBaskerville',
         backgroundColor: theme.colors.black,
@@ -21,7 +20,5 @@ export default extendTheme({
     },
   },
   components: {},
-  colors: {
-    primary: theme.colors.purple,
-  },
+  colors: { primary: theme.colors.purple, },
 }) as typeof theme;
