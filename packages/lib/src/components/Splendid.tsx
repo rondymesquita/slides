@@ -26,13 +26,19 @@ export default function Splendid() {
   // })
 
   const loadTheme = async() => {
-    if (chakraTheme && Object.keys(chakraTheme).length === 0) {
-      const themeTheme = await import(`../themes/${theme}/theme.ts`);
-      const finalTheme = extendTheme(globalTheme, themeTheme.default);
-      setChakraTheme(finalTheme);
-    } else {
-      setChakraTheme(globalTheme);
+    const themes = [globalTheme,]
+
+    const themeTheme = await import(`../themes/${theme}/theme.ts`);
+    if (themeTheme && themeTheme.default) {
+      themes.push(themeTheme.default)
     }
+
+    if (chakraTheme && Object.keys(chakraTheme).length === 0) {
+      themes.push(chakraTheme)
+    }
+
+    const finalTheme = extendTheme(...themes)
+    setChakraTheme(finalTheme);
   };
   useEffect(() => {
     loadTheme();
