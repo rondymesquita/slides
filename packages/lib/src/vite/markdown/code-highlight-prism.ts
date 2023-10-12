@@ -9,7 +9,7 @@ export const codeHighlightPrism = (md: markdownit) => {
     let html: string =  '';
     const res = []
     if (token.type === 'fence' && token.info !== 'yml:splendid'){
-      console.log('called', env, token)
+      // console.log('called', env, token)
       html = Prism.highlight(token.content, Prism.languages[token.info], token.info);
       res.push(
         '<pre class="line-numbers splendid-pre">',
