@@ -6,9 +6,9 @@ import { Slide } from '..';
 import { useSplendidContext } from '../contexts/SplendidContext';
 import { Markdown } from '../domain/model/Markdown';
 import { SlideModel } from '../domain/model/SlideModel';
-import { useNavigation } from '../hooks/useSlideNavigation/useNavigation';
-import { useSlideTransition } from '../hooks/useSlideNavigation/useSlideTransition';
-import useSlides from '../hooks/useSlides';
+import { useNavigation } from '../hooks/useNavigation';
+import { useSlides } from '../hooks/useSlides';
+import { useSlideTransition } from '../hooks/useSlideTransition';
 
 export interface SlidesProps {
   markdown: Markdown;

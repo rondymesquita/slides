@@ -4,7 +4,7 @@ import { Markdown } from '..';
 import { SlideModel } from '../domain/model/SlideModel';
 import { merge } from '../util/merge-object';
 
-export default function useSlides(markdown: Markdown, theme: string, onLoad: () => void = () => {}) {
+export function useSlides(markdown: Markdown, theme: string, onLoad: () => void = () => {}) {
 
   const [slides, setSlides,] = useState<SlideModel[]>([]);
   const [isLoaded, setLoaded,] = useState(false);

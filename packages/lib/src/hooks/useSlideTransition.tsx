@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
-import { PresentationSize } from '../../domain/model/PresentationSize';
-import { Transition } from '../../domain/model/Transition';
+import { PresentationSize } from '../domain/model/PresentationSize';
+import { Transition } from '../domain/model/Transition';
 
 const getSlideTransition = (presentationSize: PresentationSize) => {
   const scale = 1.3;

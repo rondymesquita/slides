@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { useKeyboardController } from '../../controllers/keyboard-controller';
-import { useMouseController } from '../../controllers/mouse-controller';
-import { Direction } from '../../domain/model/Transition';
-import { useLocalStorageState } from '../useLocalStorageState';
+import { useKeyboardController } from '../controllers/keyboard-controller';
+import { useMouseController } from '../controllers/mouse-controller';
+import { Direction } from '../domain/model/Transition';
+import { useLocalStorageState } from './useLocalStorageState';
 
 export const useNavigation = (slidesCount: number, initialIndex: number) => {
   const [activeIndex, setActiveIndex,] = useLocalStorageState<number>(initialIndex)
@@ -28,7 +28,7 @@ export const useNavigation = (slidesCount: number, initialIndex: number) => {
 
   useMouseController({
     onNext,
-    onPrev, 
+    onPrev,
   });
 
   useEffect(() => {
