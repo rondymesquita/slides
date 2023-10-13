@@ -6,7 +6,7 @@ transitionName: 'fade'
 
 # My Presentation
 
-This is my description
+> This is my description
 
 ```js
 const music = {

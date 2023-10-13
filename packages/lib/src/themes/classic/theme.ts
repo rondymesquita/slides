@@ -1,7 +1,8 @@
 import './style.css';
 
-import { extendTheme, theme } from '@chakra-ui/react';
+import { extendTheme } from '@chakra-ui/react';
 
+const theme = extendTheme()
 
 export default extendTheme({
   fonts: {
@@ -13,12 +14,18 @@ export default extendTheme({
       FontFace: {},
       body: {},
       '*': { boxSizing: 'border-box', },
-      'html,body': {
-        fontFamily: 'LibreBaskerville',
-        backgroundColor: theme.colors.black,
+      'html,body': { fontFamily: 'LibreBaskerville', },
+      '.splendid': { backgroundColor: theme.colors.linkedin, },
+      '.slides': { backgroundColor: theme.colors.white, },
+      'ul,li': {
+        boxSizing: 'border-box',
+        fontSize: theme.fontSizes.lg,
       },
+      blockquote: {
+        fontSize: theme.fontSizes.md,
+        color: theme.colors.gray[500],
+      },
+      a: { textDecoration: 'underline dotted', },
     },
   },
-  components: {},
-  colors: { primary: theme.colors.purple, },
 }) as typeof theme;

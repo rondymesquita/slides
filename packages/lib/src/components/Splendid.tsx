@@ -49,13 +49,12 @@ export default function Splendid() {
   const onSlidesLoad = () => {
     loadLibraries()
     setIsLoaded(true)
-    console.log('loaded')
   }
 
   return (
     <div className='splendid'>
       <ChakraProvider theme={chakraTheme}>
-        <Box position={'relative'} width='100vw' height='100vh' sx={{ opacity: isLoaded ? 1 : 0, }}>
+        <Box className='presentation' position={'relative'} width='100vw' height='100vh' sx={{ opacity: isLoaded ? 1 : 0, }}>
           <Box
             width={presentationSize.width}
             height={presentationSize.height}

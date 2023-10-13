@@ -14,13 +14,11 @@ export const useNavigation = (slidesCount: number, initialIndex: number) => {
 
   const onNext = () => {
     setTransitionDirection('NEXT')
-    console.log('called next')
     setLastNavTime(new Date().getTime())
   }
 
   const onPrev = () => {
     setTransitionDirection('PREV')
-    console.log('called prev')
     setLastNavTime(new Date().getTime())
   }
   useKeyboardController({

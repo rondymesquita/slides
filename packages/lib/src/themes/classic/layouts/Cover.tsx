@@ -10,9 +10,9 @@ export default function Cover({ children, }: any) {
       <Center
         flexGrow={1}
         textAlign={'center'}
+        height={'100%'}
         sx={{
           h1: { fontSize: theme.fontSizes['4xl'], },
-          h2: { fontSize: theme.fontSizes['2xl'], },
           'code,pre': { textAlign: 'left', },
         }}
       >
