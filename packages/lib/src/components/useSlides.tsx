@@ -2,20 +2,12 @@ import { useEffect, useState } from 'react';
 
 import { Markdown } from '..';
 import { SlideModel } from '../domain/model/SlideModel';
-import { useSlideNavigator } from '../hooks/useSlideNavigation/useSlideNavigation';
 import { merge } from '../util/merge-object';
 
-
-export default function slidesViewModel(markdown: Markdown, theme: string, onLoad: () => void) {
+export default function useSlides(markdown: Markdown, theme: string, onLoad: () => void) {
 
   const [slides, setSlides,] = useState<SlideModel[]>([]);
   const [isLoaded, setLoaded,] = useState(false);
-  const {
-    activeSlideIndex,
-    transition,
-    transitionDirection,
-  } = useSlideNavigator(markdown.pages.length, 0)
-
 
   const loadLayoutTemplates = async() => {
     const promises = markdown.pages.map(async({
@@ -59,10 +51,7 @@ export default function slidesViewModel(markdown: Markdown, theme: string, onLoa
   }, [isLoaded,])
 
   return {
-    transition,
     slides,
     isLoaded,
-    activeSlideIndex,
-    transitionDirection,
   };
 }

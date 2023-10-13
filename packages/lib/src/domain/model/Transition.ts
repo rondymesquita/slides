@@ -1,12 +1,16 @@
 import { AnimationProps } from 'framer-motion'
 
-export interface Transition {
-  right: AnimationProps['animate']
+export interface TransitionTwoState {
+  hidden: AnimationProps['animate']
   visible: AnimationProps['animate']
-  left: AnimationProps['animate']
 }
 
+export interface TransitionThreeState {
+  before: AnimationProps['animate']
+  visible: AnimationProps['animate']
+  after: AnimationProps['animate']
+}
 
-export type TransitionName = 'slide' | 'fade'
+export type Transition = TransitionTwoState | TransitionThreeState
 
-export type TransitionDirection = 'NEXT' | 'PREV'
+export type Direction = 'NEXT' | 'PREV'

@@ -1,55 +1,60 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { PresentationSize } from '../../domain/model/PresentationSize';
-import { Transition, TransitionDirection, TransitionName } from '../../domain/model/Transition';
+import { Transition } from '../../domain/model/Transition';
 
-const getSlideTransition = (transitionDirection: TransitionDirection, presentationSize: PresentationSize) => {
-  const transitionLeft: Transition = {
-    right: {
-      translate: `${presentationSize.width}px`,
-      opacity: 0,
-      scale: 1.3,
+const getSlideTransition = (presentationSize: PresentationSize) => {
+  const scale = 1.3;
+  const transition: Transition = {
+    before: {
+      translate: `${presentationSize.width * scale}px`,
+      opacity: 1,
+      scale,
     },
     visible: {
       translate: '0',
       opacity: 1,
       scale: 1,
     },
-    left: {
-      translate: `-${presentationSize.width}px`,
-      opacity: 0,
-      scale: 1.3,
+    after: {
+      translate: `-${presentationSize.width * scale}px`,
+      opacity: 1,
+      scale,
     },
   }
-
-  return transitionLeft
+  return transition
 }
-const getFadeTransition = (transitionDirection: TransitionDirection, presentationSize: PresentationSize) => {
+const getFadeTransition = (presentationSize: PresentationSize) => {
   const transition: Transition = {
-    right: { opacity: 0, },
+    before: { opacity: 0, },
     visible: { opacity: 1, },
-    left: { opacity: 0, },
+    after: { opacity: 0, },
   }
 
   return transition
 }
 
-const transitions = new Map<TransitionName, (t: TransitionDirection, p: PresentationSize) => Transition>()
+const transitions = new Map<string, (p: PresentationSize) => Transition>()
 transitions.set('slide', getSlideTransition)
 transitions.set('fade', getFadeTransition)
 
-export const useSlideTransition = (name: TransitionName, direction: TransitionDirection, presentationSize: PresentationSize) => {
+export const useSlideTransition = (name: string, presentationSize: PresentationSize) => {
 
-  const [transition, setTransition,] = useState<Transition>(getSlideTransition(direction, presentationSize));
+  const [transition, setTransition,] = useState<Transition>(getSlideTransition(presentationSize));
 
-  const t = transitions.get(name) || getSlideTransition
+  useEffect(() => {
+    const t = transitions.get(name) || getSlideTransition
+    setTransition(t(presentationSize))
+  }, [])
 
-  const updateTransition = () => {
-    setTransition(t(direction, presentationSize))
+  const getTransition = (index: number, activeIndex: number) => {
+    if ('hidden' in transition) {
+      return index === activeIndex ? transition.visible : transition.hidden
+    } else {
+      return index === activeIndex ? transition.visible : index > activeIndex ? transition.before : transition.after
+    }
+
   }
 
-  return {
-    transition,
-    updateTransition,
-  }
+  return { getTransition, }
 }

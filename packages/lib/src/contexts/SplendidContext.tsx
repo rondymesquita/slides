@@ -22,7 +22,7 @@ export function SplendidProvider({ children, }: any) {
       width: 980,
       height: 552,
     },
-    animationDuration: 0.5,
+    transitionDuration: 0.5,
     transitionName: 'slide',
   }) as SplendidContextProps
 
