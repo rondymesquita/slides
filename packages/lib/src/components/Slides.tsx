@@ -8,7 +8,7 @@ import { Markdown } from '../domain/model/Markdown';
 import { SlideModel } from '../domain/model/SlideModel';
 import { useNavigation } from '../hooks/useSlideNavigation/useNavigation';
 import { useSlideTransition } from '../hooks/useSlideNavigation/useSlideTransition';
-import useSlides from './useSlides';
+import useSlides from '../hooks/useSlides';
 
 export interface SlidesProps {
   markdown: Markdown;
