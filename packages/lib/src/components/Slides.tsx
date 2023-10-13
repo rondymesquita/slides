@@ -24,6 +24,7 @@ export default function Slides({
     activeSlideIndex,
     slides,
     transition,
+    transitionDirection,
   } = slidesViewModel(markdown, theme, onLoad)
   const { animationDuration, } = useSplendidContext();
 
@@ -36,28 +37,8 @@ export default function Slides({
               height: '100%',
               width: '100%',
               position: 'absolute',
-              opacity: activeSlideIndex === index ? 1 : 0,
             }}
-            initial={index === activeSlideIndex ? {
-              translate: '980px',
-              opacity: 1,
-            } : index > activeSlideIndex ? {
-              translate: '980px',
-              opacity: 0,
-            } : {
-              translate: '-980px',
-              opacity: 0,
-            }}
-            animate={index === activeSlideIndex ? {
-              translate: '0',
-              opacity:1,
-            } : index > activeSlideIndex ? {
-              translate: '980px',
-              opacity: 0,
-            } : {
-              translate: '-980px',
-              opacity: 0,
-            }}
+            animate={index === activeSlideIndex ? transition.visible : index > activeSlideIndex ? transition.right : transition.left}
             // exit={transition.exit}
             transition={{ duration: animationDuration, }}
             >

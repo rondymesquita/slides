@@ -42,7 +42,7 @@ export const useSlideNavigator = (slidesCount: number, initialIndex: number) => 
       return
     }
     updateTransition()
-    console.log('lastNavTime', lastNavTime, transition)
+    // console.log('lastNavTime', lastNavTime, transition)
 
     if (transitionDirection === 'NEXT') {
       setActiveSlideIndex((index) => {

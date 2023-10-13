@@ -1,9 +1,9 @@
 import { AnimationProps } from 'framer-motion'
 
 export interface Transition {
-  enter: AnimationProps['initial']
+  right: AnimationProps['animate']
   visible: AnimationProps['animate']
-  exit: AnimationProps['exit']
+  left: AnimationProps['animate']
 }
 
 

@@ -5,42 +5,30 @@ import { Transition, TransitionDirection, TransitionName } from '../../domain/mo
 
 const getSlideTransition = (transitionDirection: TransitionDirection, presentationSize: PresentationSize) => {
   const transitionLeft: Transition = {
-    enter: {
+    right: {
       translate: `${presentationSize.width}px`,
       opacity: 0,
+      scale: 1.3,
     },
     visible: {
       translate: '0',
       opacity: 1,
+      scale: 1,
     },
-    exit: {
+    left: {
       translate: `-${presentationSize.width}px`,
       opacity: 0,
+      scale: 1.3,
     },
   }
 
-  const transitionRight: Transition = {
-    enter: {
-      translate: `-${presentationSize.width}px`,
-      opacity: 0,
-    },
-    visible: {
-      translate: '0',
-      opacity: 1,
-    },
-    exit: {
-      translate: `${presentationSize.width}px`,
-      opacity: 0,
-    },
-  }
-
-  return transitionDirection === 'NEXT' ? transitionLeft : transitionRight
+  return transitionLeft
 }
 const getFadeTransition = (transitionDirection: TransitionDirection, presentationSize: PresentationSize) => {
   const transition: Transition = {
-    enter: { opacity: 0, },
+    right: { opacity: 0, },
     visible: { opacity: 1, },
-    exit: { opacity: 0, },
+    left: { opacity: 0, },
   }
 
   return transition
