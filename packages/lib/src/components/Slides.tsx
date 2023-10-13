@@ -8,7 +8,7 @@ import { Markdown } from '../domain/model/Markdown';
 import { SlideModel } from '../domain/model/SlideModel';
 import { useNavigation } from '../hooks/useNavigation';
 import { useSlides } from '../hooks/useSlides';
-import { useSlideTransition } from '../hooks/useSlideTransition';
+import { useTransition } from '../hooks/useTransition';
 
 export interface SlidesProps {
   markdown: Markdown;
@@ -34,7 +34,7 @@ export default function Slides({
 
   const { isLoaded, slides, } = useSlides(markdown, theme)
   const { activeIndex, } = useNavigation(markdown.pages.length, 0)
-  const { getTransition, } = useSlideTransition(transitionName, presentationSize)
+  const { getTransition, } = useTransition()
 
   const [isAnimationCompleted, setAnimationCompleted,] = useState(false)
 

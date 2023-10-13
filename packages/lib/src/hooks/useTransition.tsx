@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 
-import { PresentationSize } from '../domain/model/PresentationSize';
+import { SplendidContextValues, useSplendidContext } from '../contexts/SplendidContext';
 import { Transition } from '../domain/model/Transition';
 
-const getSlideTransition = (presentationSize: PresentationSize) => {
-  const scale = 1.3;
+const getSlideTransition = ({ presentationSize, }: SplendidContextValues) => {
+  const scale = 1;
   const transition: Transition = {
     before: {
       translate: `${presentationSize.width * scale}px`,
@@ -24,7 +24,7 @@ const getSlideTransition = (presentationSize: PresentationSize) => {
   }
   return transition
 }
-const getFadeTransition = (presentationSize: PresentationSize) => {
+const getFadeTransition = () => {
   const transition: Transition = {
     before: { opacity: 0, },
     visible: { opacity: 1, },
@@ -34,18 +34,23 @@ const getFadeTransition = (presentationSize: PresentationSize) => {
   return transition
 }
 
-const transitions = new Map<string, (p: PresentationSize) => Transition>()
-transitions.set('slide', getSlideTransition)
-transitions.set('fade', getFadeTransition)
+const defaultTransitions = new Map<string, (c: SplendidContextValues) => Transition>()
+defaultTransitions.set('slide', getSlideTransition)
+defaultTransitions.set('fade', getFadeTransition)
 
-export const useSlideTransition = (name: string, presentationSize: PresentationSize) => {
+export const useTransition = () => {
+  const context = useSplendidContext()
 
-  const [transition, setTransition,] = useState<Transition>(getSlideTransition(presentationSize));
+  const [transition, setTransition,] = useState<Transition>(getSlideTransition(context));
 
   useEffect(() => {
-    const t = transitions.get(name) || getSlideTransition
-    setTransition(t(presentationSize))
+
   }, [])
+
+  useEffect(() => {
+    const t = defaultTransitions.get(context.transitionName)!
+    setTransition(t(context))
+  }, [context.transitionName,])
 
   const getTransition = (index: number, activeIndex: number) => {
     if ('hidden' in transition) {
@@ -53,7 +58,11 @@ export const useSlideTransition = (name: string, presentationSize: PresentationS
     } else {
       return index === activeIndex ? transition.visible : index > activeIndex ? transition.before : transition.after
     }
+  }
 
+  const defineTransition = (name: string, f: (c: SplendidContextValues) => Transition) => {
+
+    setTransition(f())
   }
 
   return { getTransition, }

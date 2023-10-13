@@ -4,16 +4,15 @@ import { MarkdownAttributes } from '..';
 import { merge } from '../util/merge-object';
 import { useSetupContext } from './SetupContext';
 
-type SplendidContextProps = Required<MarkdownAttributes>
+export type SplendidContextValues = Required<MarkdownAttributes>
 
-const SplendidContext = React.createContext<SplendidContextProps>({} as SplendidContextProps);
+const SplendidContext = React.createContext<SplendidContextValues>({} as SplendidContextValues);
 
-export const useSplendidContext = () => useContext<SplendidContextProps>(SplendidContext);
+export const useSplendidContext = () => useContext<SplendidContextValues>(SplendidContext);
 
 export function SplendidProvider({ children, }: any) {
 
   const { markdown, } = useSetupContext()
-
   const value = merge(markdown.attributes, {
     syntaxHighlight: 'prism',
     syntaxHighlightEnabled: true,
@@ -24,7 +23,7 @@ export function SplendidProvider({ children, }: any) {
     },
     transitionDuration: 0.5,
     transitionName: 'slide',
-  }) as SplendidContextProps
+  }) as SplendidContextValues
 
   return (
     <SplendidContext.Provider value={value}>

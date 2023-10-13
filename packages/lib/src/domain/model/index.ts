@@ -1,3 +1,6 @@
 export * from './Attributes'
 export * from './Markdown'
 export * from './Page'
+export * from './PresentationSize'
+export * from './SlideModel'
+export * from './Transition'
