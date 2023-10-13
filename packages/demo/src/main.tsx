@@ -1,4 +1,6 @@
 
+import './styles.css'
+
 import { SetupProvider, Splendid, SplendidProvider } from '@rondymesquita/splendid';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
