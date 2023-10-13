@@ -49,7 +49,7 @@ export default function Slides({
       <Flex className='slides' width={'100%'} height={'100%'} position={'relative'}>
         {slides.map((slide: SlideModel, index: number) => {
           return (
-            <motion.div key={slide.id} style={{
+            <motion.div layout key={slide.id} style={{
               height: '100%',
               width: '100%',
               position: 'absolute',

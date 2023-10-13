@@ -15,7 +15,7 @@ export default extendTheme({
       body: {},
       '*': { boxSizing: 'border-box', },
       'html,body': { fontFamily: 'LibreBaskerville', },
-      '.splendid': { backgroundColor: theme.colors.linkedin, },
+      '.splendid': { backgroundColor: theme.colors.black, },
       '.slides': { backgroundColor: theme.colors.white, },
       'ul,li': {
         boxSizing: 'border-box',

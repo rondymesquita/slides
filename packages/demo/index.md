@@ -2,6 +2,7 @@
 title: fulano
 theme: classic
 transitionName: 'fade'
+transitionDuration: 0.5
 ```
 
 # My Presentation
