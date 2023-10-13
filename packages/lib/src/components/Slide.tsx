@@ -19,7 +19,6 @@ export default function Slide({
 }: SlideProps) {
   return (
     <Flex height={'100%'} width={'100%'} className='slide'>
-      {/* <Flex height={'100%'} width={'100%'} className='slide'> */}
       <Layout>
         <div
           dangerouslySetInnerHTML={createMarkup(html)}

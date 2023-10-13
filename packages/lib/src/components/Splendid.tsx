@@ -1,5 +1,5 @@
 import { Box, ChakraProvider, extendTheme } from '@chakra-ui/react';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Slides } from '..';
 import { useSetupContext } from '../contexts/SetupContext';
@@ -18,12 +18,7 @@ export default function Splendid() {
   } = useSetupContext();
 
   const { presentationSize, theme, } = useSplendidContext()
-
-  // const globalAttributes = merge<MarkdownAttributes>(attributes, {
-  //   syntaxHighlight: 'prism',
-  //   syntaxHighlightEnabled: true,
-  //   theme: 'classic',
-  // })
+  const [ isLoaded, setIsLoaded, ] = useState(false)
 
   const loadTheme = async() => {
     const themes = [globalTheme,]
@@ -51,10 +46,16 @@ export default function Splendid() {
   const containerRef = useRef<HTMLElement>();
   const { scale, } = useElementScale(containerRef as React.MutableRefObject<HTMLElement>);
 
+  const onSlidesLoad = () => {
+    loadLibraries()
+    setIsLoaded(true)
+    console.log('loaded')
+  }
+
   return (
     <div className='splendid'>
       <ChakraProvider theme={chakraTheme}>
-        <Box position={'relative'} width='100vw' height='100vh'>
+        <Box position={'relative'} width='100vw' height='100vh' sx={{ opacity: isLoaded ? 1 : 0, }}>
           <Box
             width={presentationSize.width}
             height={presentationSize.height}
@@ -67,7 +68,7 @@ export default function Splendid() {
               transformOrigin: 'top left',
             }}
           >
-            <Slides markdown={markdown} theme={theme} onLoad={() => loadLibraries()}/>
+            <Slides markdown={markdown} theme={theme} onLoad={onSlidesLoad}/>
           </Box>
         </Box>
       </ChakraProvider>
