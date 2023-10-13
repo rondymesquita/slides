@@ -26,7 +26,10 @@ export const useNavigation = (slidesCount: number, initialIndex: number) => {
     onPrev,
   });
 
-  useMouseController({ onNext, });
+  useMouseController({
+    onNext,
+    onPrev, 
+  });
 
   useEffect(() => {
     if (firstRenderRef.current) {
